@@ -1,0 +1,177 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id String @id @default(uuid())
+  fullName String
+  email String @unique
+  password String
+  institute String 
+  degree String
+  year String
+  createdAt DateTime @default(now())
+
+  //relations
+  wishlist Wishlist?
+  listings Listing[]
+  refreshtokens RefreshToken[]
+  profile Profile? 
+
+  @@index([email])
+
+}
+
+model Profile{
+  id String @id @default(uuid())
+  profilepic String @default("")
+  bio String?
+  linkedin String?
+  github String?
+
+  //relation
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+
+}
+
+
+model RefreshToken{
+  id String @id @default(uuid())
+  refreshtoken String?
+  expiry DateTime
+  //relation 
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+//category
+model Category {
+  id String @id @default(uuid())
+  name String 
+ 
+  //relations
+  subcategories SubCategory[]
+   listings Listing[]
+
+  @@unique([name])
+}
+
+//subcategory
+model SubCategory{
+  id String @id @default(uuid())
+  name String
+  categoryId String 
+
+  category Category @relation(fields: [categoryId], references: [id]) 
+  listings Listing[]
+
+  @@index([categoryId])
+  @@unique([name,categoryId])
+}
+
+//images 
+model Images{
+  id String @id @default(uuid())
+  url String
+  listing Listing @relation(fields: [listingId], references: [id])
+  listingId String
+
+  @@index([listingId])
+}
+
+//type
+enum ListingType {
+  PRODUCT
+  SERVICE
+}
+
+//condition
+enum Condition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+}
+
+//listing status
+enum ListingStatus {
+  ACTIVE
+  SOLD
+}
+
+//product or service hybrid schema 
+model Listing{
+  id String @id @default(uuid())
+  type ListingType
+  title String
+  price Decimal? @db.Decimal(10,2)
+  description String
+  institute String
+  // categoryId String
+  subCategoryId String
+  categoryId String
+  status ListingStatus @default(ACTIVE)
+
+  //media
+  images Images[]
+
+  //product-only
+  condition Condition?
+  quantity Int? 
+
+ //service-only
+ availability Json?
+ durationHr Decimal? @db.Decimal(10,2)
+
+ //shared data
+ location String?
+ createdAt DateTime @default(now())
+
+ //relations 
+ sellerId String
+ wishlistlisting Wishlist_Listing[]
+ seller User @relation(fields: [sellerId],references: [id])
+ subcategory SubCategory @relation(fields: [subCategoryId],references: [id])
+ category Category @relation(fields: [categoryId],references: [id])
+
+
+ @@index([sellerId])
+ @@index([subCategoryId])
+ @@index([institute,status,type])
+
+}
+
+model Wishlist {
+  id String @id @default(uuid())
+  userId String @unique
+
+  //relations
+  user User @relation(fields: [userId],references: [id])
+  wishlistListings Wishlist_Listing[]
+}
+
+model Wishlist_Listing {
+  id String @id @default(uuid())
+  listingId String
+  wishlistId String
+
+  //relation
+  listing Listing @relation(fields: [listingId],references: [id])
+  wishlist Wishlist @relation(fields: [wishlistId],references: [id])
+
+}
