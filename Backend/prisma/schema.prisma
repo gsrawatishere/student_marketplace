@@ -38,9 +38,9 @@ model User {
 model Profile{
   id String @id @default(uuid())
   profilepic String @default("")
-  bio String?
-  linkedin String?
-  github String?
+  bio String? 
+  linkedin String? 
+  github String?  
 
   //relation
   userId String @unique

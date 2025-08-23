@@ -41,6 +41,9 @@ export const register = async (req, res) => {
         institute,
         degree,
         year,
+        profile: {
+          create: {},
+        },
       },
     });
     console.log(newUser);
@@ -73,23 +76,44 @@ export const login = async (req, res) => {
 
     const refreshToken = generateRefreshToken(existUser.id, res);
 
-const updated =  await prisma.user.update({
-  where: { id: existUser.id },
-  data: {
-    refreshtokens: {
-      create: {
-        refreshtoken: refreshToken,
-        expiry: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+    const updated = await prisma.user.update({
+      where: { id: existUser.id },
+      data: {
+        refreshtokens: {
+          create: {
+            refreshtoken: refreshToken,
+            expiry: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+          },
+        },
       },
-    },
-  },
-});
-
-console.log(updated);
+    });
 
     res.status(200).json({ msg: "Login Success!" });
   } catch (error) {
     console.error("Error in login router", error);
     res.status(500).json({ msg: "Error in user Login", error });
+  }
+};
+
+//logout
+
+export const logout = async (req, res) => {
+  try {
+    res.cookie("refreshToken", "", {
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: true,
+    });
+
+    res.cookie("accessToken", "", {
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: true,
+    });
+
+    return res.status(200).json({ msg: "Logged out successfully!" });
+  } catch (error) {
+    console.error("Error in logout", error);
+    res.status(500).json({ msg: "Error in logout", error });
   }
 };

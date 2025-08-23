@@ -220,3 +220,4 @@ export const getListingBySubCat = async (req,res) => {
     res.status(500).json({ msg: "Failed to get listings by Sub Category", error });
   } 
 }
+
