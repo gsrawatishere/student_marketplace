@@ -7,6 +7,12 @@ export const createCategory = async (req, res) => {
     if (!name) {
       return res.status(400).json({ msg: "Category name is required" });
     }
+    const exists = await prisma.category.findFirst({
+      where : {name}
+    })
+    if(exists){
+      return res.status(400).json({msg : "Category already exists"})
+    }
     const category = await prisma.category.create({
       data: { name },
     });
@@ -30,7 +36,14 @@ export const createSubCategory = async (req,res) => {
       if (!category) {
       return res.status(404).json({ msg: "Category not found" });
     }
-
+      
+    const exists = await prisma.subCategory.findFirst({
+      where : {name}
+    })
+    if(exists){
+      return res.status(400).json({msg : "SubCategory already exists"})
+    }
+      
      const subcategory = await prisma.subCategory.create({
         data : {name, categoryId},
         select : {
@@ -168,13 +181,13 @@ export const getListingByCat = async (req,res) =>{
     }
     const listings = await prisma.listing.findMany({
       where : { 
-        categoryId : catId
+        categoryId : catId,
+        institute : req.user.institute
+
       } 
     })
 
-    if(listings.length === 0){
-      return res.status(400).json({msg : "No listings on given category!"})
-    }
+    
     res.status(200).json({listings});
     
   } catch (error) {
@@ -191,7 +204,8 @@ export const getListingBySubCat = async (req,res) => {
     }
     const listings = await prisma.listing.findMany({
       where : {
-        subCategoryId : subCatid
+        subCategoryId : subCatid,
+         institute : req.user.institute
       }
     })
     

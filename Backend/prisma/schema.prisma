@@ -163,6 +163,7 @@ model Wishlist {
   //relations
   user User @relation(fields: [userId],references: [id])
   wishlistListings Wishlist_Listing[]
+  
 }
 
 model Wishlist_Listing {
@@ -173,5 +174,7 @@ model Wishlist_Listing {
   //relation
   listing Listing @relation(fields: [listingId],references: [id])
   wishlist Wishlist @relation(fields: [wishlistId],references: [id])
+  @@unique([wishlistId, listingId]) 
 
 }
+
