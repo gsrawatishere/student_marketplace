@@ -87,7 +87,7 @@ model SubCategory{
 model Images{
   id String @id @default(uuid())
   url String
-  listing Listing @relation(fields: [listingId], references: [id])
+  listing Listing @relation(fields: [listingId], references: [id] , onDelete: Cascade)
   listingId String
 
   @@index([listingId])
@@ -153,6 +153,7 @@ model Listing{
  @@index([sellerId])
  @@index([subCategoryId])
  @@index([institute,status,type])
+ @@unique([id, sellerId])
 
 }
 
@@ -172,7 +173,7 @@ model Wishlist_Listing {
   wishlistId String
 
   //relation
-  listing Listing @relation(fields: [listingId],references: [id])
+  listing Listing @relation(fields: [listingId],references: [id], onDelete: Cascade ) 
   wishlist Wishlist @relation(fields: [wishlistId],references: [id])
   @@unique([wishlistId, listingId]) 
 
