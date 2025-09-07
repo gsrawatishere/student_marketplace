@@ -7,14 +7,19 @@ import App from "../App";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import ListingListCard from "../Components/ListingListCard";
+import ListingCard from "../Components/ListingCard";
+import Home from "../Pages/Home";
+import Categories from "../Components/Categories";
 
 const MyRoute = createBrowserRouter(
     createRoutesFromElements(
       <>
-      <Route path="/" element={<App/>}/>
+      <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
       <Route path="/list" element={<ListingListCard/>} />
+      <Route path="/list-card" element={<ListingCard/>} />
+      <Route path="/cat" element={<Categories/>} />
       
  
       </>

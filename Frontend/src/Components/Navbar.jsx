@@ -3,7 +3,7 @@ import { School,Heart,CircleUserRound,Search,Plus } from 'lucide-react'
 
 const Navbar = () => {
   return (
-    <div className='w-full fixed z-10 bg-while  py-4 px-6 lg:px-12'>
+    <div className='w-full fixed z-10 bg-while  py-4 px-6 lg:px-12 '>
           <div className='flex justify-between items-center m-1'>
                 {/* Left items */}
                 <div className='flex  items-center gap-2'>
