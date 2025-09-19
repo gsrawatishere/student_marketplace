@@ -28,7 +28,7 @@ const ListingCard = ({listing}) => {
             month: "long",
           })}
         </div>
-        <div className="text-[10px] md:text-[12px] font-medium bg-indigo-100 text-indigo-700 px-1 py-0.5 rounded-sm">
+        <div className="text-[10px] md:text-[12px] font-medium  text-indigo-700 px-1 py-0.5 rounded-sm">
           {listing.type}
         </div>
       </div>

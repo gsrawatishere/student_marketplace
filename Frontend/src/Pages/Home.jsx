@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import ImageSlider from '../Components/ImageSlider'
 import Categories from '../Components/Categories'
 import Recommandations from '../Components/Recommandations'
+import Footer from '../Components/Footer'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
         <Categories/>
         <ImageSlider/>
         <Recommandations/>
+        <Footer/>
     </div>
   )
 }

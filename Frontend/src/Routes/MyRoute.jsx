@@ -10,7 +10,7 @@ import ListingListCard from "../Components/ListingListCard";
 import ListingCard from "../Components/ListingCard";
 import Home from "../Pages/Home";
 import Categories from "../Components/Categories";
-import WishList from "../Components/WishList";
+import Wishlist from "../Pages/Wishlist";
 
 const MyRoute = createBrowserRouter(
     createRoutesFromElements(
@@ -20,7 +20,7 @@ const MyRoute = createBrowserRouter(
       <Route path="/register" element={<Register/>} />
       <Route path="/list" element={<ListingListCard/>}/>
       <Route path="/list-card" element={<ListingCard/>}/>
-      <Route path="/wishlist" element={<WishList/>}/>
+      <Route path="/wishlist" element={<Wishlist/>}/>
       
       </>
 ));
