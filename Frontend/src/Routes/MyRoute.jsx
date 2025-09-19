@@ -20,10 +20,8 @@ const MyRoute = createBrowserRouter(
       <Route path="/register" element={<Register/>} />
       <Route path="/list" element={<ListingListCard/>}/>
       <Route path="/list-card" element={<ListingCard/>}/>
-      <Route path="/cat" element={<Categories/>} />
       <Route path="/wishlist" element={<WishList/>}/>
       
- 
       </>
 ));
 
