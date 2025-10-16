@@ -8,11 +8,11 @@ import Footer from '../Components/Footer'
 const Home = () => {
   return (
     <div>
-        <Navbar/>
+       
         <Categories/>
         <ImageSlider/>
         <Recommandations/>
-        <Footer/>
+       
     </div>
   )
 }

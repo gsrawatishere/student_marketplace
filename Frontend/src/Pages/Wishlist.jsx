@@ -189,9 +189,7 @@ const Wishlist = () => {
 ]);
   return (
    <div> 
-    
         <PageHeader  name="Wishlist" />
-
     <div className='pt-14 md:pt-18'>
         {listings.map((listing)=>{
         return <WishListCard listing={listing}/>
