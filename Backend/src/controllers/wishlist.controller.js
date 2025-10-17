@@ -127,23 +127,28 @@ export const getWishlist = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    if (!userId) {
-      return res.status(200).json({ msg: "No userid found" });
-    }
     const wishlist = await Prisma.wishlist.findUnique({
       where: { userId: userId },
-    });
-
-    const wishlistItems = await Prisma.wishlist_Listing.findMany({
-        where : {
-            wishlistId : wishlist.id
+      include: {
+        wishlistListings: {
+          include: {
+            listing: {
+              include: {
+                images: true, 
+              },
+            },
+          },
         },
-        include : {
-            listing : true
-        }
+      },
     });
 
-    const listings = wishlistItems.map(item => item.listing);
+    
+    if (!wishlist) {
+      return res.status(200).json({ listings: [] });
+    }
+
+
+    const listings = wishlist.wishlistListings.map(item => item.listing);
 
     return res.status(200).json({ listings });
 

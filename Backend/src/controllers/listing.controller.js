@@ -159,7 +159,10 @@ export const getListingById = async (req,res) =>{
           return res.status(400).json({msg : "Listing Id not found!"})
         }
         const listings = await prisma.listing.findUnique({
-          where : {id}
+          where : {id},
+          include : {
+        images : true
+      }
         })
 
         if(!listings) {
@@ -185,7 +188,10 @@ export const getListingByCat = async (req,res) =>{
         categoryId : catId,
         institute : req.user.institute
 
-      } 
+      } ,
+      include : {
+        images : true
+      }
     })
 
     
@@ -207,6 +213,9 @@ export const getListingBySubCat = async (req,res) => {
       where : {
         subCategoryId : subCatid,
          institute : req.user.institute
+      },
+      include : {
+        images : true
       }
     })
     
@@ -230,7 +239,10 @@ export const getMyListings = async (req,res)=>{
     }
 
     const myListings = await prisma.listing.findMany({
-      where : {sellerId : userId}
+      where : {sellerId : userId},
+      include : {
+        images : true
+      }
     })
 
     if(!myListings) {
@@ -275,16 +287,55 @@ export const editListing = async (req,res) =>{
 
 export const getRecentListings = async (req,res) =>{
   try {
-    const allListings = await prisma.listing.findMany({
-      where : {
-        institute : req.user.institute
-      }
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // 2. Calculate the number of records to skip (the offset).
+    // For page 1, skip = 0. For page 2, skip = 10, etc.
+    const skip = (page - 1) * limit;
+
+    // 3. Fetch both the listings for the current page and the total count of all listings.
+    // Using a Prisma transaction ensures both queries are executed together.
+    const [listings, totalCount] = await prisma.$transaction([
+      prisma.listing.findMany({
+        where: {
+          institute: req.user.institute,
+        },
+        // Order by creation date to get the most recent ones first.
+        orderBy: {
+          createdAt: 'desc',
+        },
+        // Use 'skip' and 'take' for pagination.
+        skip: skip,
+        take: limit,
+        // Include any related data you need for the listing cards.
+        include: {
+          images: true, 
+        },
+      }),
+      prisma.listing.count({
+        where: {
+          institute: req.user.institute,
+        },
+      }),
+    ]);
+
+    if (listings.length === 0 && page === 1) {
+      return res.status(200).json({ 
+        msg: "No listings found!",
+        listings: [],
+        totalPages: 0,
+        currentPage: 1
+      });
+    }
+
+    // 4. Send the paginated data and metadata back to the frontend.
+    res.status(200).json({
+      listings, // The 10 listings for the current page
+      totalPages: Math.ceil(totalCount / limit), // The total number of pages available
+      currentPage: page, // The current page number
     });
-    if(!allListings) {
-          return res.status(400).json({msg : "No Listings found!"})
-        }
-    res.status(200).json({allListings})
-    
+ 
   } catch (error) {
     console.error("Error in  getRecentListings ",error);
     res.status(500).json({msg : "Failed to  getRecentListings! ",error});

@@ -8,7 +8,4 @@ router.get("/exists/:id",verifyUser,checkInWishlist);
 router.get("/add/:id",verifyUser,addToWishlist);
 router.delete("/delete/:id",verifyUser,deleteFromWishlist);
 
-
-
-
 export default router;

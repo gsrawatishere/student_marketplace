@@ -46,6 +46,12 @@ export const register = async (req, res) => {
         },
       },
     });
+
+   await prisma.wishlist.create({
+  data: {
+    userId: newUser.id, 
+  },
+});
     console.log(newUser);
     return res
       .status(200)
