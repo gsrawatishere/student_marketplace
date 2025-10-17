@@ -45,7 +45,6 @@ export const updateProfile = async (req,res) =>{
     try {
        const userId = req.user.id;
        const {fullName,degree,year,profilepic,bio,linkedin,github} = req.body;
-
         if (!userId) {
       return res.status(400).json({ msg: "No user id found!" });
     }

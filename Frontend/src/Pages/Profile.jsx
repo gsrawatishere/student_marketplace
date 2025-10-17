@@ -29,15 +29,13 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
-
-  useEffect(() => {
-    async function getData() {
+  
+   async function getData() {
       setLoading(true);
       try {
         const response = await axiosInstance.get("/profile/me");
-
         setUserData(response.data);
-        console.log(response.data);
+       
       } catch (error) {
         console.error("Failed to get Profile data: ", error);
       } finally {
@@ -45,12 +43,25 @@ const Profile = () => {
       }
     }
 
+  useEffect(() => {
     getData();
-  }, []);
+  },[]);
 
   if (loading) {
     return <Loader />;
   }
+
+   // data for edit profile 
+
+   const initailData = {
+            fullName : userData.profile.fullName,
+            profilepic : userData.profile.profilepic,
+            bio : userData.profile.profile?.bio,
+            linkedin : userData.profile.profile?.linkedin,
+            github : userData.profile.profile?.github,
+            degree : userData.profile.degree,
+            year : userData.profile.year
+        }
 
   if (!userData || !userData.profile) {
     return (
@@ -70,7 +81,7 @@ const Profile = () => {
   return (
     <div>
       <PageHeader name="Profile" />
-       {editProfile && <EditProfile onClose={()=>{setEditProfile(false)}} />}
+       {editProfile && <EditProfile onClose={()=>{setEditProfile(false)}}  initialData={initailData} getData={getData} />}
       <div className="min-h-screen pt-14 md:pt-16">
         <div className="max-w-5xl mx-auto p-6 md:p-12 space-y-8">
           {/* Hero Section */}
