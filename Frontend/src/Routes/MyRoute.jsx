@@ -14,14 +14,16 @@ import Wishlist from "../Pages/Wishlist";
 import Profile from "../Pages/Profile";
 import AddListingForm from "../Pages/AddListingForm";
 
+
 const MyRoute = createBrowserRouter(
     createRoutesFromElements(
       <>
-       <Route path="/login" element={<Login/>} />
+      <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
-       <Route path="/wishlist" element={<Wishlist/>}/>
+      <Route path="/wishlist" element={<Wishlist/>}/>
       <Route path="/profile" element={<Profile/>}/>
-      <Route path="addlisting" element={<AddListingForm/>} />
+      <Route path="/addlisting" element={<AddListingForm/>} />
+      
 
       {/* With navbar and footer */}
       <Route path="/" element={<App/>}>
