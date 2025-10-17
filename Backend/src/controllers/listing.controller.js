@@ -3,9 +3,9 @@ const prisma = new PrismaClient();
 
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
-    if (!name) {
-      return res.status(400).json({ msg: "Category name is required" });
+    const { name,image } = req.body;
+    if (!name || !image ) {
+      return res.status(400).json({ msg: "Category name and image url is required" });
     }
     const exists = await prisma.category.findFirst({
       where : {name}
@@ -14,7 +14,7 @@ export const createCategory = async (req, res) => {
       return res.status(400).json({msg : "Category already exists"})
     }
     const category = await prisma.category.create({
-      data: { name },
+      data: { name , image },
     });
     res.status(201).json({ msg: "Category created successfully", category });
   } catch (error) {
@@ -25,9 +25,9 @@ export const createCategory = async (req, res) => {
 
 export const createSubCategory = async (req,res) => {
     try {
-           const {name,categoryId} = req.body;
-           if (!name || !categoryId) {
-      return res.status(400).json({ msg: "Name and categoryId are required" });
+           const {name,categoryId,image} = req.body;
+           if (!name || !categoryId || !image) {
+      return res.status(400).json({ msg: "Name, image and categoryId are required" });
     }
       const category = await prisma.category.findUnique({
         where : {id : categoryId}
@@ -45,7 +45,7 @@ export const createSubCategory = async (req,res) => {
     }
       
      const subcategory = await prisma.subCategory.create({
-        data : {name, categoryId},
+        data : {name, categoryId, image},
         select : {
             id : true,
             name : true,
@@ -65,6 +65,7 @@ export const getCategories = async (req,res) => {
         const categoies = await prisma.category.findMany({
             include : {subcategories : true}
         })
+        res.status(200).json(categoies);
     } catch (error) {
         console.error("Error fetching categories:", error);
     res.status(500).json({ msg: "Failed to fetch categories", error });
@@ -268,5 +269,24 @@ export const editListing = async (req,res) =>{
   } catch (error) {
     console.error("Error in editListing ",error);
     res.status(500).json({msg : "Failed to edit Listing! ",error});
+  }
+}
+
+
+export const getRecentListings = async (req,res) =>{
+  try {
+    const allListings = await prisma.listing.findMany({
+      where : {
+        institute : req.user.institute
+      }
+    });
+    if(!allListings) {
+          return res.status(400).json({msg : "No Listings found!"})
+        }
+    res.status(200).json({allListings})
+    
+  } catch (error) {
+    console.error("Error in  getRecentListings ",error);
+    res.status(500).json({msg : "Failed to  getRecentListings! ",error});
   }
 }

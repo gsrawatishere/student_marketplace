@@ -62,7 +62,7 @@ model RefreshToken{
 model Category {
   id String @id @default(uuid())
   name String 
- 
+  image String
   //relations
   subcategories SubCategory[]
    listings Listing[]
@@ -74,6 +74,7 @@ model Category {
 model SubCategory{
   id String @id @default(uuid())
   name String
+  image String
   categoryId String 
 
   category Category @relation(fields: [categoryId], references: [id]) 
