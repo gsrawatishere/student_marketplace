@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import cloudinary from "../lib/cloudinary.js";
 const Prisma = new PrismaClient();
 
 export const ProfileDetails = async (req, res) => {
@@ -41,34 +42,45 @@ export const ProfileDetails = async (req, res) => {
   }
 };
 
-export const updateProfile = async (req,res) =>{
-    try {
-       const userId = req.user.id;
-       const {fullName,degree,year,profilepic,bio,linkedin,github} = req.body;
-        if (!userId) {
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { fullName, degree, year, profilepic, bio, linkedin, github } =
+      req.body;
+    if (!userId) {
       return res.status(400).json({ msg: "No user id found!" });
     }
-      const editprofile = await Prisma.user.update({
-        where : {id : userId},
-        data : {
-            fullName,
-            degree,
-            year,
-            profile : {
-                update : {
-                    profilepic,
-                    bio,
-                    linkedin,
-                    github
-                }
-            }
-        }
-      })
 
-      return res.status(200).json({msg : "Profile updated successfully!"})
-        
-    } catch (error) {
+    const profileDataToUpdate = {
+      bio,
+      linkedin,
+      github,
+    };
+
+    if (profilepic && profilepic.startsWith("data:image")) {
+      const uploadResponse = await cloudinary.uploader.upload(profilepic, {
+        resource_type: "auto",
+        folder : "StudentMarketplace"
+      });
+
+      profileDataToUpdate.profilepic = uploadResponse.secure_url;
+    }
+
+    const updatedUser = await Prisma.user.update({
+      where: { id: userId },
+      data: {
+        fullName,
+        degree,
+        year,
+        profile: {
+          update: profileDataToUpdate,
+        },
+      },
+    });
+
+    return res.status(200).json({ msg: "Profile updated successfully!" });
+  } catch (error) {
     console.error("Error in editProfile", error);
     return res.status(500).json({ msg: "Error in editProfile", error });
-    }
-}
+  }
+};

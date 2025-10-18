@@ -7,7 +7,7 @@ router.post("/create-listing",verifyUser,createListing);
 router.post("/add-category",verifyUser,createCategory);
 router.post("/add-subcategory",verifyUser,createSubCategory);
 router.get("/get-categories",verifyUser,getCategories);
-router.post("/get-subBy-catid",verifyUser,getSubCategoriesByCategory);
+router.get("/get-subBy-catid",verifyUser,getSubCategoriesByCategory);
 router.get("/get-listing/:id",verifyUser,getListingById);
 router.get("/get-listingsbyCat/:id",verifyUser,getListingByCat);
 router.get("/get-listingsbySubCat/:id",verifyUser,getListingBySubCat);

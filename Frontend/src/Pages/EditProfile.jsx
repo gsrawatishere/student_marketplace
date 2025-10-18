@@ -64,6 +64,7 @@ export const EditProfile = ({ initialData, onClose, getData}) => {
   const [yearOptions, setYearOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -74,7 +75,8 @@ export const EditProfile = ({ initialData, onClose, getData}) => {
         linkedin: initialData.linkedin || "",
         github: initialData.github || "",
       });
-      setProfilePicPreview(initialData.profile?.profilepic || null);
+
+      setProfilePicPreview(initialData.profilepic || null);
       updateYearOptions(initialData.degree);
     }
   }, [initialData]);
@@ -99,23 +101,48 @@ export const EditProfile = ({ initialData, onClose, getData}) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+   
+  const maxSizeInMB = 5; 
+  const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+  if (!allowedTypes.includes(file.type)) {
+    toast.error('Invalid image format. Please upload JPG, PNG, or WEBP only.');
+    return;
+  }
+
+  if (file.size > maxSizeInBytes) {
+    toast.error("Image too large! Max allowed size is ${maxSizeInMB}MB.")
+    return;
+  }
+
     if (file) {
-      setProfilePicFile(file);
       setProfilePicPreview(URL.createObjectURL(file));
     }
+    const base64Image = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    
+      setProfilePicFile(base64Image)
+      
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
     try {
       const response = await axiosInstance.post("/profile/update", {
         fullName: formData.fullName,
         degree: formData.degree,
         year: formData.year,
-        profilepic: formData.profilepic,
+        profilepic: profilePicFile,
         bio: formData.bio,
         linkedin: formData.linkedin,
         github: formData.github,

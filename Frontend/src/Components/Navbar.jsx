@@ -32,7 +32,9 @@ const Navbar = () => {
                 <div className='flex items-center gap-5 text-xl md:text-2xl md:gap-7  '>
                       <Heart onClick={()=>(navigate("/wishlist"))} className='size-6 md:size-7 lg:size-8 hover:text-indigo-600 cursor-pointer'/>
                       <CircleUserRound onClick={()=>(navigate("/profile"))} className='size-6 md:size-7 lg;size-8 hover:text-indigo-600 cursor-pointer' />
-                     <button className='hidden md:flex justify-center items-center rounded-md  px-4 py-1 text-lg font-semibold bg-indigo-600 outline-none hover:bg-indigo-700 text-white cursor-pointer' ><Plus className='mr-1'/> SELL</button>
+                     <button 
+                       onClick={()=>{navigate('/addlisting')}}
+                     className='hidden md:flex justify-center items-center rounded-md  px-4 py-1 text-lg font-semibold bg-indigo-600 outline-none hover:bg-indigo-700 text-white cursor-pointer' ><Plus className='mr-1'/> SELL</button>
                 </div>
 
           </div>

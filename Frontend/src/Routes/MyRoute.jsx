@@ -30,8 +30,6 @@ const MyRoute = createBrowserRouter(
       <Route index element={<Home/>} />
       <Route path="/list" element={<ListingListCard/>}/>
       <Route path="/list-card" element={<ListingCard/>}/>
-     
-
       </Route>
       </>
 ));

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+import cloudinary from "../lib/cloudinary.js";
 
 export const createCategory = async (req, res) => {
   try {
@@ -74,7 +75,11 @@ export const getCategories = async (req,res) => {
 
 export const getSubCategoriesByCategory = async (req,res) => {
     try {
-        const {categoryId} = req.body;
+       const { categoryId } = req.query;
+
+      if (!categoryId) {
+            return res.status(400).json({ msg: "Category ID is required." });
+        }
 
     const subcategories = await prisma.subCategory.findMany({
       where: { categoryId },
@@ -87,65 +92,77 @@ export const getSubCategoriesByCategory = async (req,res) => {
     res.status(500).json({ msg: "Failed to fetch subcategories", error });
     }
 }
+ 
 
 export const createListing = async (req, res) => {
   try {
     const {
-      type,
-      title,
-      price,
-      description,
-      subCategoryId,
-      categoryId,
-      images,
-      condition,
-      quantity,
-      availability,
-      durationHr,
-      location,
+      type, title, price, description, subCategoryId, categoryId, images,
+      condition, quantity, availability, durationHr, location,
     } = req.body;
 
+    
     if (!type || !title || !price || !description || !subCategoryId || !categoryId) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
-
     if (type === "PRODUCT" && (!condition || !quantity)) {
-      return res
-        .status(400)
-        .json({ msg: "Product requires condition and quantity" });
+      return res.status(400).json({ msg: "Product requires condition and quantity" });
     }
-
     if (type === "SERVICE" && (!availability || !durationHr)) {
-      return res
-        .status(400)
-        .json({ msg: "Service requires availability and durationHr" });
+      return res.status(400).json({ msg: "Service requires availability and duration" });
     }
 
+    
+    const imageUrls = [];
+    if (images && images.length > 0) {
+      // Create an array of upload promises
+      const uploadPromises = images.map(base64Image => {
+        return cloudinary.uploader.upload(base64Image, {
+          folder: "StudentMarketplace", 
+          resource_type: "auto",
+        });
+      });
+
+      
+      const uploadResults = await Promise.all(uploadPromises);
+      
+      
+      uploadResults.forEach(result => {
+        imageUrls.push(result.secure_url);
+      });
+    }
+
+    
+    const numericPrice = parseFloat(price);
+    const numericQuantity = type === "PRODUCT" ? parseInt(quantity, 10) : null;
+    const numericDurationHr = type === "SERVICE" ? parseFloat(durationHr) : null;
+
+    
     const listing = await prisma.listing.create({
       data: {
         type,
         title,
-        price,
+        price: numericPrice, 
         description,
         location,
         condition: type === "PRODUCT" ? condition : null,
-        quantity: type === "PRODUCT" ? quantity : null,
+        quantity: numericQuantity, // Use converted number
         availability: type === "SERVICE" ? availability : null,
-        durationHr: type === "SERVICE" ? durationHr : null,
+        durationHr: numericDurationHr, // Use converted number
         seller: { connect: { id: req.user.id } },
         subcategory: { connect: { id: subCategoryId } },
-        category : {connect : {id : categoryId}},
+        category: { connect: { id: categoryId } },
         institute: req.user.institute,
         images: {
-          create: images.map((url) => ({ url })),
+          // Use the imageUrls array from Cloudinary
+          create: imageUrls.map((url) => ({ url })),
         },
       },
       include: { images: true, subcategory: true },
     });
 
-    return res
-      .status(200)
-      .json({ msg: `${type} listed successfully`, listing });
+    return res.status(200).json({ msg: `${type} listed successfully`, listing });
+
   } catch (error) {
     console.error("Error creating listing:", error);
     res.status(500).json({ msg: "Failed to create listing", error });

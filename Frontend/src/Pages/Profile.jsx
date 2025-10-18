@@ -4,6 +4,7 @@ import { Card, CardContent } from "../Components/ProfileCards";
 import avatar from "../../public/avatar.png";
 import PageHeader from "../Components/PageHeader";
 import { EditProfile } from "./EditProfile";
+import { useNavigate } from "react-router-dom";
 
 
 import {
@@ -24,12 +25,14 @@ import {
 import axiosInstance from "../Api/AxiosInstance";
 
 import Loader from "../Components/Loader";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
-  
+  const navigate = useNavigate();
+
    async function getData() {
       setLoading(true);
       try {
@@ -43,6 +46,21 @@ const Profile = () => {
       }
     }
 
+    const handleLogout = async()=>{
+      console.log("clicked")
+      try {
+         const response = await axiosInstance.get('/auth/logout');
+         if(response.status == 200){
+          toast.success(response.data.msg);
+          navigate("/login")
+         }
+      } catch (error) {
+        console.error("Failed to logout :",error);
+        const errorMsg = error.response?.data?.msg || "Failed to logout"
+        toast.error(errorMsg)
+      }
+    }
+
   useEffect(() => {
     getData();
   },[]);
@@ -52,10 +70,9 @@ const Profile = () => {
   }
 
    // data for edit profile 
-
    const initailData = {
             fullName : userData.profile.fullName,
-            profilepic : userData.profile.profilepic,
+            profilepic : userData.profile.profile?.profilepic || avatar,
             bio : userData.profile.profile?.bio,
             linkedin : userData.profile.profile?.linkedin,
             github : userData.profile.profile?.github,
@@ -204,7 +221,9 @@ const Profile = () => {
                   </span>
                 </Button>
                  <Button variant="default">
-                  <Plus className="w-6 h-6" />
+                  <Plus className="w-6 h-6"
+                   onClick={()=>{navigate('/addlisting')}}
+                  />
                   <span className="text-xs md:text-sm font-semibold">
                     Create New Listing
                   </span>
@@ -220,7 +239,9 @@ const Profile = () => {
                   </span>
                 </Button>
 
-                <Button variant="outline">
+                <Button variant="outline"
+                 onClick={()=>{navigate('/wishlist')}}
+                >
                   <Heart className="w-6 h-6" />
                   <span className="text-xs md:text-sm font-semibold">
                     Wishlist
@@ -228,7 +249,9 @@ const Profile = () => {
                 </Button>
                
                 <Button variant="ghost">
-                  <LogOut className="w-6 h-6" />
+                  <LogOut className="w-6 h-6"
+                   onClick={handleLogout}
+                  />
                   <span className="text-xs md:text-sm font-semibold">
                     Logout
                   </span>
