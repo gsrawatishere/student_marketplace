@@ -215,7 +215,9 @@ const Profile = () => {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
                 <Button variant="outline">
-                  <Package className="w-6 h-6" />
+                  <Package className="w-6 h-6" 
+                   onClick={()=>{navigate('/my-listings')}}
+                  />
                   <span className="text-xs md:text-sm font-semibold">
                     My Listings
                   </span>

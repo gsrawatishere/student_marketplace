@@ -22,7 +22,7 @@ const ListingCard = ({ listing }) => {
         <div className="text-lg sm:text-xl font-bold text-indigo-600 text-center">
           ₹{listing.price}
         </div>
-        <h2 className="text-xs sm:text-sm font-medium text-slate-500 line-clamp-2">
+        <h2 className="text-xs sm:text-sm font-medium text-slate-500 line-clamp-1">
           {listing.title}
         </h2>
         <div className="flex justify-between items-center pt-2">

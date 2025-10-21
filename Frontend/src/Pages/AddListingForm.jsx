@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Package, Wrench, Image as ImageIcon, X } from 'lucide-react';
 import axiosInstance from '../Api/AxiosInstance';
 import toast from 'react-hot-toast';
-import Loader from '../Components/Loader'; // Added for loading state
+import Loader from '../Components/Loader'; 
+import { useNavigate } from 'react-router-dom';
 
 const AddListingForm = () => {
   const [listingType, setListingType] = useState('PRODUCT');
@@ -10,7 +11,8 @@ const AddListingForm = () => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState(false); // Added for UX
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -122,7 +124,7 @@ const AddListingForm = () => {
     });
   };
 
-  // --- FIX: Corrected handleSubmit function ---
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -137,7 +139,7 @@ const AddListingForm = () => {
       const response = await axiosInstance.post('/listing/create-listing', finalData);
       if (response.status === 200) {
         toast.success("Listing created successfully!");
-        // Here you might want to reset the form or navigate away
+         navigate('/');
       }
     } catch (error) {
       toast.error(error.response?.data?.msg || "Failed to create listing.");

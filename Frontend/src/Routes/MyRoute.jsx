@@ -13,6 +13,9 @@ import Categories from "../Components/Categories";
 import Wishlist from "../Pages/Wishlist";
 import Profile from "../Pages/Profile";
 import AddListingForm from "../Pages/AddListingForm";
+import MyListings from "../Pages/MyListings";
+import ListingDetail from "../Pages/GetListing";
+import GetListing from "../Pages/GetListing";
 
 
 const MyRoute = createBrowserRouter(
@@ -23,13 +26,15 @@ const MyRoute = createBrowserRouter(
       <Route path="/wishlist" element={<Wishlist/>}/>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/addlisting" element={<AddListingForm/>} />
+      <Route path="/my-listings" element={<MyListings/>} />
       
 
       {/* With navbar and footer */}
       <Route path="/" element={<App/>}>
       <Route index element={<Home/>} />
       <Route path="/list" element={<ListingListCard/>}/>
-      <Route path="/list-card" element={<ListingCard/>}/>
+      <Route path='/listing' element={<GetListing/>} />
+      
       </Route>
       </>
 ));
