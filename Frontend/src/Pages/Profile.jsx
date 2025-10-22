@@ -6,7 +6,6 @@ import PageHeader from "../Components/PageHeader";
 import { EditProfile } from "./EditProfile";
 import { useNavigate } from "react-router-dom";
 
-
 import {
   User,
   Mail,
@@ -33,52 +32,51 @@ const Profile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const navigate = useNavigate();
 
-   async function getData() {
-      setLoading(true);
-      try {
-        const response = await axiosInstance.get("/profile/me");
-        setUserData(response.data);
-       
-      } catch (error) {
-        console.error("Failed to get Profile data: ", error);
-      } finally {
-        setLoading(false);
-      }
+  async function getData() {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get("/profile/me");
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Failed to get Profile data: ", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    const handleLogout = async()=>{
-      console.log("clicked")
-      try {
-         const response = await axiosInstance.get('/auth/logout');
-         if(response.status == 200){
-          toast.success(response.data.msg);
-          navigate("/login")
-         }
-      } catch (error) {
-        console.error("Failed to logout :",error);
-        const errorMsg = error.response?.data?.msg || "Failed to logout"
-        toast.error(errorMsg)
+  const handleLogout = async () => {
+    console.log("clicked");
+    try {
+      const response = await axiosInstance.get("/auth/logout");
+      if (response.status == 200) {
+        toast.success(response.data.msg);
+        navigate("/login");
       }
+    } catch (error) {
+      console.error("Failed to logout :", error);
+      const errorMsg = error.response?.data?.msg || "Failed to logout";
+      toast.error(errorMsg);
     }
+  };
 
   useEffect(() => {
     getData();
-  },[]);
+  }, []);
 
   if (loading) {
     return <Loader />;
   }
 
-   // data for edit profile 
-   const initailData = {
-            fullName : userData.profile.fullName,
-            profilepic : userData.profile.profile?.profilepic || avatar,
-            bio : userData.profile.profile?.bio,
-            linkedin : userData.profile.profile?.linkedin,
-            github : userData.profile.profile?.github,
-            degree : userData.profile.degree,
-            year : userData.profile.year
-        }
+  // data for edit profile
+  const initailData = {
+    fullName: userData.profile.fullName,
+    profilepic: userData.profile.profile?.profilepic || avatar,
+    bio: userData.profile.profile?.bio,
+    linkedin: userData.profile.profile?.linkedin,
+    github: userData.profile.profile?.github,
+    degree: userData.profile.degree,
+    year: userData.profile.year,
+  };
 
   if (!userData || !userData.profile) {
     return (
@@ -98,7 +96,15 @@ const Profile = () => {
   return (
     <div>
       <PageHeader name="Profile" />
-       {editProfile && <EditProfile onClose={()=>{setEditProfile(false)}}  initialData={initailData} getData={getData} />}
+      {editProfile && (
+        <EditProfile
+          onClose={() => {
+            setEditProfile(false);
+          }}
+          initialData={initailData}
+          getData={getData}
+        />
+      )}
       <div className="min-h-screen pt-14 md:pt-16">
         <div className="max-w-5xl mx-auto p-6 md:p-12 space-y-8">
           {/* Hero Section */}
@@ -214,26 +220,34 @@ const Profile = () => {
                 Quick Actions
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-                <Button variant="outline">
-                  <Package className="w-6 h-6" 
-                   onClick={()=>{navigate('/my-listings')}}
-                  />
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    navigate("/my-listings");
+                  }}
+                >
+                  <Package className="w-6 h-6" />
                   <span className="text-xs md:text-sm font-semibold">
                     My Listings
                   </span>
                 </Button>
-                 <Button variant="default">
-                  <Plus className="w-6 h-6"
-                   onClick={()=>{navigate('/addlisting')}}
+                <Button variant="default">
+                  <Plus
+                    className="w-6 h-6"
+                    onClick={() => {
+                      navigate("/addlisting");
+                    }}
                   />
                   <span className="text-xs md:text-sm font-semibold">
                     Create New Listing
                   </span>
                 </Button>
 
-                <Button 
-                variant="outline"
-                 onClick={()=>{setEditProfile(true)}}
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setEditProfile(true);
+                  }}
                 >
                   <Edit className="w-6 h-6" />
                   <span className="text-xs md:text-sm font-semibold">
@@ -241,19 +255,20 @@ const Profile = () => {
                   </span>
                 </Button>
 
-                <Button variant="outline"
-                 onClick={()=>{navigate('/wishlist')}}
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    navigate("/wishlist");
+                  }}
                 >
                   <Heart className="w-6 h-6" />
                   <span className="text-xs md:text-sm font-semibold">
                     Wishlist
                   </span>
                 </Button>
-               
+
                 <Button variant="ghost">
-                  <LogOut className="w-6 h-6"
-                   onClick={handleLogout}
-                  />
+                  <LogOut className="w-6 h-6" onClick={handleLogout} />
                   <span className="text-xs md:text-sm font-semibold">
                     Logout
                   </span>

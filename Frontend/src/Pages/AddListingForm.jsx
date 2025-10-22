@@ -165,12 +165,12 @@ const AddListingForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6 border-t pt-6">
             <div className="md:col-span-2">
               <label htmlFor="title" className="block text-sm font-semibold text-gray-700">Title</label>
-              {/* --- FIX: Added value prop --- */}
-              <input type="text" name="title" id="title" required value={formData.title} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder={listingType === 'PRODUCT' ? "e.g., Used iPhone 13 Pro" : "e.g., Mathematics Tutoring for Beginners"} onChange={handleInputChange} />
+              
+              <input type="text" name="title" id="title" required value={formData.title} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" placeholder={listingType === 'PRODUCT' ? "e.g., Used iPhone 13 Pro" : "e.g., Mathematics Tutoring for Beginners"} onChange={handleInputChange} />
             </div>
             <div>
               <label htmlFor="categoryId" className="block text-sm font-semibold text-gray-700">Category</label>
-              {/* --- FIX: Added value prop --- */}
+              
               <select name="categoryId" id="categoryId" required value={formData.categoryId} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" onChange={handleCategoryChange}>
                 <option value="">Select a Category</option>
                 {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
@@ -178,7 +178,7 @@ const AddListingForm = () => {
             </div>
             <div>
               <label htmlFor="subCategoryId" className="block text-sm font-semibold text-gray-700">Subcategory</label>
-              {/* --- FIX: Added value prop --- */}
+              
               <select name="subCategoryId" id="subCategoryId" required value={formData.subCategoryId} disabled={!formData.categoryId} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] disabled:bg-gray-100" onChange={handleInputChange}>
                 <option value="">Select a Subcategory</option>
                 {subcategories.map(sub => <option key={sub.id} value={sub.id}>{sub.name}</option>)}
@@ -186,18 +186,18 @@ const AddListingForm = () => {
             </div>
             <div className="md:col-span-2">
               <label htmlFor="description" className="block text-sm font-semibold text-gray-700">Description</label>
-              {/* --- FIX: Added value prop --- */}
-              <textarea name="description" id="description" rows="4" required value={formData.description} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder="Provide details about your listing..." onChange={handleInputChange}></textarea>
+              
+              <textarea name="description" id="description" rows="4" required value={formData.description} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" placeholder="Provide details about your listing..." onChange={handleInputChange}></textarea>
             </div>
             <div>
               <label htmlFor="location" className="block text-sm font-semibold text-gray-700">Location</label>
-              {/* --- FIX: Added value prop --- */}
-              <input type="text" name="location" id="location" value={formData.location} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder="e.g., Campus Library" onChange={handleInputChange} />
+              
+              <input type="text" name="location" id="location" value={formData.location} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" placeholder="e.g., Campus Library" onChange={handleInputChange} />
             </div>
              <div>
               <label htmlFor="price" className="block text-sm font-semibold text-gray-700">Price (₹)</label>
-              {/* --- FIX: Added value prop --- */}
-              <input type="number" name="price" id="price" required min="0" value={formData.price} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder="Enter amount in INR" onChange={handleInputChange} />
+              
+              <input type="number" name="price" id="price" required min="0" value={formData.price} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]  px-2" placeholder="Enter amount in INR" onChange={handleInputChange} />
             </div>
           </div>
           <div className="border-t pt-6">
@@ -217,7 +217,7 @@ const AddListingForm = () => {
                 <div>
                   <label htmlFor="quantity" className="block text-sm font-semibold text-gray-700">Quantity</label>
                   {/* --- FIX: Added value prop --- */}
-                  <input type="number" name="quantity" id="quantity" required min="1" value={formData.quantity} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" onChange={handleInputChange}/>
+                  <input type="number" name="quantity" id="quantity" required min="1" value={formData.quantity} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" onChange={handleInputChange}/>
                 </div>
               </div>
             ) : (

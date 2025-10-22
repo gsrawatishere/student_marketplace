@@ -14,8 +14,8 @@ import Wishlist from "../Pages/Wishlist";
 import Profile from "../Pages/Profile";
 import AddListingForm from "../Pages/AddListingForm";
 import MyListings from "../Pages/MyListings";
-import ListingDetail from "../Pages/GetListing";
-import GetListing from "../Pages/GetListing";
+import GetListingDetails from "../Pages/GetListingDetails";
+import AllListingsBy from "../Pages/AllListingsBy";
 
 
 const MyRoute = createBrowserRouter(
@@ -33,7 +33,8 @@ const MyRoute = createBrowserRouter(
       <Route path="/" element={<App/>}>
       <Route index element={<Home/>} />
       <Route path="/list" element={<ListingListCard/>}/>
-      <Route path='/listing' element={<GetListing/>} />
+      <Route path='/listing/:id' element={<GetListingDetails/>} />
+      <Route path='/all/:id' element={<AllListingsBy/>} />
       
       </Route>
       </>

@@ -1,13 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ListingCard = ({ listing }) => {
   // A check to prevent errors if the images array is empty
   const imageUrl = listing.images?.[0]?.url || 'https://via.placeholder.com/150';
+   const navigate = useNavigate();
 
   return (
     // --- FIX: Removed fixed widths (w-36, sm:w-44, md:w-52), margin (m-3), and flex-shrink-0 ---
     // Added 'w-full' to make the card responsive to the parent grid.
-    <div className="w-full cursor-pointer rounded-lg text-center pb-4 relative duration-300 hover:scale-105 transition-all p-1">
+    <div
+      onClick={()=>{navigate(`/listing/${listing.id}`)}}
+    className="w-full cursor-pointer rounded-lg text-center pb-4 relative duration-300 hover:scale-105 transition-all p-1">
       {/* Listing Image */}
       <div className="relative w-full h-32 sm:h-36 md:h-40 overflow-hidden rounded-md">
         <img
@@ -17,7 +21,6 @@ const ListingCard = ({ listing }) => {
         />
       </div>
 
-      {/* Product Details (No changes here) */}
       <div className="flex flex-col gap-1 mt-2">
         <div className="text-lg sm:text-xl font-bold text-indigo-600 text-center">
           ₹{listing.price}
