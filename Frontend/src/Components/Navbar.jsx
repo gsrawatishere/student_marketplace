@@ -31,6 +31,7 @@ const Navbar = () => {
                 {/* Right items */}
                 <div className='flex items-center gap-5 text-xl md:text-2xl md:gap-6  '>
                       <MessageSquare onClick={()=>(navigate("/all-chats"))} className='size-5 md:size-6 lg:size-7 hover:text-indigo-600 cursor-pointer'/>
+                         <Heart onClick={()=>(navigate("/wishlist"))} className='size-5 md:size-6 lg:size-7 hover:text-indigo-600 cursor-pointer'/>
                       <CircleUserRound onClick={()=>(navigate("/profile"))} className='size-6 md:size-7 lg;size-8 hover:text-indigo-600 cursor-pointer' />
                      <button 
                        onClick={()=>{navigate('/addlisting')}}

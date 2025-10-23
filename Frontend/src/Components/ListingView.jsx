@@ -101,7 +101,7 @@ const ActionButton = ({
   small,
 }) => {
   const base =
-    "font-bold rounded-lg transition-colors w-full  " +
+    "font-bold rounded-md transition-colors w-full mx-1 " +
     (small ? "py-3 text-sm" : "py-3 text-base");
 
   if (primary)
@@ -295,18 +295,18 @@ const ListingView = ({ listing }) => {
       {/* Mobile Bottom Bar */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white flex justify-around p-3 border-t border-gray-200 shadow-up z-50">
         <ActionButton
-          label={inWishlist ? "IN WISHLIST" : "SAVE FOR LATER"}
-          onClick={handleSaveForLater}
-          outline
-          small
-        />
-        <ActionButton
-          label={isOutOfStock ? "OUT OF STOCK" : "CONTACT SELLER"}
-          onClick={handleContactSeller}
-          disabled={isOutOfStock}
-          primary
-          small
-        />
+            label={isOutOfStock ? "Out of Stock" : "Contact Seller"}
+            onClick={handleContactSeller}
+            disabled={isOutOfStock}
+            primary
+          />
+          <ActionButton
+            label={inWishlist ? "View in Wishlist" : "Add to Wishlist"}
+            onClick={() => {
+              inWishlist ? navigate("/wishlist") : handleSaveForLater();
+            }}
+            outline
+          />
       </div>
     </div>
   );
