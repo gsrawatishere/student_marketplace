@@ -34,6 +34,7 @@ const Categories = () => {
          <div className='flex space-x-4 md:space-x-6 lg:space-x-8'>
              {category.map((cat)=>(
                 <div
+                 key={cat.id}
                  onClick={()=>{navigate(`/all/${cat.id}`)}}
                  className='flex flex-col justify-center items-center text-center  cursor-pointer hover:scale-110 transition-all pr-1'>
                      <img src={cat.image} alt={cat.name} 

@@ -6,6 +6,7 @@ import authroute from "./routes/auth.route.js"
 import listingroute from "./routes/listing.route.js"
 import wishlistroute from "./routes/wishlist.route.js"
 import profileroute from "./routes/profile.route.js"
+import chatroute from "./routes/chat.route.js"
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use("/api/v1/auth",authroute);
 app.use("/api/v1/listing",listingroute);
 app.use("/api/v1/wishlist",wishlistroute);
 app.use("/api/v1/profile",profileroute);
+app.use("/api/v1/chat",chatroute);
 
 
 

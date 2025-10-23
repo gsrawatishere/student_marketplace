@@ -78,11 +78,11 @@ axiosInstance.interceptors.response.use(
         // If the refresh token endpoint itself fails, it means the user's session is truly expired.
         processQueue(refreshError, null);
         
-        // --- IMPORTANT: Implement your logout logic here ---
-        // This could involve clearing user data from local storage/state and redirecting.
         console.error("Session has expired. User needs to log in again.");
-        window.location.href = '/login'; // Force a redirect to the login page.
         
+        // KEY CHANGE: Instead of a hard redirect, we reject the promise.
+        // This allows the error to be handled by the .catch() block in your AuthProvider
+        // or wherever the initial API call was made.
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

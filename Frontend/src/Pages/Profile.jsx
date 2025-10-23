@@ -269,8 +269,10 @@ const Profile = () => {
                   </span>
                 </Button>
 
-                <Button variant="ghost">
-                  <LogOut className="w-6 h-6" onClick={handleLogout} />
+                <Button 
+                onClick={handleLogout}
+                variant="ghost">
+                  <LogOut className="w-6 h-6"  />
                   <span className="text-xs md:text-sm font-semibold">
                     Logout
                   </span>

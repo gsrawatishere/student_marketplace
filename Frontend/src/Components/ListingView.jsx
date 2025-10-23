@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import axiosInstance from "../Api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast'
 
 
 const ListingInfo = React.memo(({ listing }) => {
@@ -182,8 +183,19 @@ const ListingView = ({ listing }) => {
     );
   }
 
-  const handleContactSeller = () => {
-    alert("Contacting seller...");
+  const handleContactSeller = async () => {
+    try {
+      const resposne = await axiosInstance.post('/chat/create-chat',{
+        sellerId : listing.sellerId
+      })
+      if(resposne.status == 200){
+        navigate('/all-chats');
+      }
+    } catch (error) {
+      console.error("Failed to contact seller :",error);
+      const errorMsg = error.response?.data.msg || "Failed to contact seller"
+      toast.error(errorMsg);
+    }
   };
 
   const handleSaveForLater = async () => {

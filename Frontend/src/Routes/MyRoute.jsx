@@ -16,6 +16,7 @@ import AddListingForm from "../Pages/AddListingForm";
 import MyListings from "../Pages/MyListings";
 import GetListingDetails from "../Pages/GetListingDetails";
 import AllListingsBy from "../Pages/AllListingsBy";
+import ChatList from "../Pages/ChatList";
 
 
 const MyRoute = createBrowserRouter(
@@ -27,6 +28,7 @@ const MyRoute = createBrowserRouter(
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/addlisting" element={<AddListingForm/>} />
       <Route path="/my-listings" element={<MyListings/>} />
+      <Route path='/all-chats' element={<ChatList/>} />
       
 
       {/* With navbar and footer */}
@@ -35,7 +37,7 @@ const MyRoute = createBrowserRouter(
       <Route path="/list" element={<ListingListCard/>}/>
       <Route path='/listing/:id' element={<GetListingDetails/>} />
       <Route path='/all/:id' element={<AllListingsBy/>} />
-      
+
       </Route>
       </>
 ));
