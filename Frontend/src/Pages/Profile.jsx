@@ -231,12 +231,14 @@ const Profile = () => {
                     My Listings
                   </span>
                 </Button>
-                <Button variant="default">
-                  <Plus
-                    className="w-6 h-6"
-                    onClick={() => {
+                <Button
+                 onClick={() => {
                       navigate("/addlisting");
                     }}
+                variant="default">
+                  <Plus
+                    className="w-6 h-6"
+                   
                   />
                   <span className="text-xs md:text-sm font-semibold">
                     Create New Listing

@@ -1,5 +1,5 @@
 import express from "express";
-import { createCategory, createListing, createSubCategory, deleteListing, getCategories, getListingByCat, getListingById, getListingBySubCat, getMyListings, getRecentListings, getSubCategoriesByCategory } from "../controllers/listing.controller.js";
+import { createCategory, createListing, createSubCategory, deleteListing, editListing, getCategories, getListingByCat, getListingById, getListingBySubCat, getMyListings, getRecentListings, getSubCategoriesByCategory } from "../controllers/listing.controller.js";
 import { verifyUser } from "../middleware/verify.js";
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.get("/get-listingsbySubCat/:id",verifyUser,getListingBySubCat);
 router.get("/get-mylistings",verifyUser,getMyListings);
 router.delete("/delete-mylisting/:id",verifyUser,deleteListing);
 router.get("/getRecentListings",verifyUser,getRecentListings)
+router.post("/edit-listing",verifyUser,editListing)
 
 export default router;
 

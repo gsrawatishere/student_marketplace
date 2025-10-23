@@ -1,5 +1,5 @@
 import React from 'react'
-import { School,Heart,CircleUserRound,Search,Plus } from 'lucide-react'
+import { School,Heart,CircleUserRound,Search,Plus,MessageSquare } from 'lucide-react'
 import {useNavigate} from 'react-router-dom';
 
 const Navbar = () => {
@@ -29,8 +29,8 @@ const Navbar = () => {
                </div>
 
                 {/* Right items */}
-                <div className='flex items-center gap-5 text-xl md:text-2xl md:gap-7  '>
-                      <Heart onClick={()=>(navigate("/wishlist"))} className='size-6 md:size-7 lg:size-8 hover:text-indigo-600 cursor-pointer'/>
+                <div className='flex items-center gap-5 text-xl md:text-2xl md:gap-6  '>
+                      <MessageSquare onClick={()=>(navigate("/wishlist"))} className='size-5 md:size-6 lg:size-7 hover:text-indigo-600 cursor-pointer'/>
                       <CircleUserRound onClick={()=>(navigate("/profile"))} className='size-6 md:size-7 lg;size-8 hover:text-indigo-600 cursor-pointer' />
                      <button 
                        onClick={()=>{navigate('/addlisting')}}

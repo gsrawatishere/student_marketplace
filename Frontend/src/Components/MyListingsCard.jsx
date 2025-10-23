@@ -14,16 +14,19 @@ const MyListingsCard = ({ listing, removeListing, editItem }) => {
                  rounded-xl hover:scale-[1.02] transition-all duration-300 bg-white"
     >
       {/* Product image section */}
-      <div 
-      onClick={()=>{navigate(`/listing/${listing.id}`)}}
-      className="flex-shrink-0 w-[30vw] sm:w-[25vw] md:w-[20vw] lg:w-[15vw] xl:w-[12vw]">
-        <img
-          src={listing.images[0].url}
-          alt={listing.title}
-          className="w-full h-auto rounded-xs object-contain"
-        />
-        
-      </div>
+     <div 
+  onClick={()=>{navigate(`/listing/${listing.id}`)}}
+  className="flex-shrink-0 w-[30vw] sm:w-[25vw] md:w-[20vw] lg:w-[15vw] xl:w-[12vw] 
+             aspect-square overflow-hidden rounded-xs bg-gray-200 cursor-pointer" 
+>
+    <img
+      src={listing.images[0]?.url} 
+      alt={listing.title}
+      className="w-full h-full object-cover" 
+      
+    />
+    
+</div>
 
       {/* Product detail section */}
       <div className="flex flex-col gap-1 pr-2 flex-grow w-full">
@@ -40,7 +43,7 @@ const MyListingsCard = ({ listing, removeListing, editItem }) => {
            <div className="flex justify-end  " >
             {/* Edit Button */}
             <div
-              onClick={() => editItem(listing.id)}
+              onClick={() => editItem(listing)}
               className="text-xs font-medium text-indigo-700 px-1 py-0.5 rounded-sm hover:text-blue-700"
             >
               <Edit size={18} />

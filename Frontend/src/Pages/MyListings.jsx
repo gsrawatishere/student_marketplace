@@ -6,6 +6,7 @@ import axiosInstance from "../Api/AxiosInstance";
 import Loader from "../Components/Loader";
 import DeleteWarningModal from "../Components/DeleteWarningModel";
 import toast from 'react-hot-toast'
+import EditListing from "../Components/EditListing";
 
 
 const MyListings = () => {
@@ -13,6 +14,8 @@ const MyListings = () => {
   const [loading, setLoading] = useState(true);
   const [showDelete,setShowdelete] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [showEdit, setShowEdit] = useState(false);
+  const [itemToEdit,setItemToEdit] = useState(null);
 
 
   const myListings = async () => {
@@ -29,8 +32,9 @@ const MyListings = () => {
     }
   };
 
-  const handleEdit = async () => {
-    //todo
+  const handleEdit = async (listing) => {
+    setShowEdit(true);
+    setItemToEdit(listing);
   };
 
   const handleDelete = async(id,title)=>{
@@ -62,6 +66,11 @@ const handleConfirmDelete = async () => {
     }
   };
 
+  const handleEditSuccess = async ()=>{
+    setItemToEdit(null);
+    myListings();
+  }
+
   useEffect(() => {
     myListings();
   }, []);
@@ -70,6 +79,7 @@ const handleConfirmDelete = async () => {
     <div>
       <PageHeader name="MyListings" />
       {loading && <Loader />}
+      {showEdit && <EditListing onCancel={()=>{setShowEdit(false)}} initialData={itemToEdit} onUpdateSuccess={handleEditSuccess} />}
       {showDelete && <DeleteWarningModal onConfirmDelete={handleConfirmDelete} listingTitle={itemToDelete?.title} onCancel={()=>(setShowdelete(false))} />}
       <div className="pt-14 md:pt-18">
         {listings.length > 0 ? (

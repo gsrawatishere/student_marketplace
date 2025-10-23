@@ -216,7 +216,7 @@ const AddListingForm = () => {
                 </div>
                 <div>
                   <label htmlFor="quantity" className="block text-sm font-semibold text-gray-700">Quantity</label>
-                  {/* --- FIX: Added value prop --- */}
+                  
                   <input type="number" name="quantity" id="quantity" required min="1" value={formData.quantity} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" onChange={handleInputChange}/>
                 </div>
               </div>
@@ -224,13 +224,13 @@ const AddListingForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="availability" className="block text-sm font-semibold text-gray-700">Availability</label>
-                  {/* --- FIX: Added value prop --- */}
-                  <input type="text" name="availability" id="availability" required value={formData.availability} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder="e.g., Weekdays, 5-7 PM" onChange={handleInputChange}/>
+                  
+                  <input type="text" name="availability" id="availability" required value={formData.availability} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" placeholder="e.g., Weekdays, 5-7 PM" onChange={handleInputChange}/>
                 </div>
                 <div>
                   <label htmlFor="durationHr" className="block text-sm font-semibold text-gray-700">Duration (hours)</label>
-                  {/* --- FIX: Added value prop --- */}
-                  <input type="number" name="durationHr" id="durationHr" required min="0.5" step="0.5" value={formData.durationHr} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6]" placeholder="e.g., 1.5" onChange={handleInputChange}/>
+                  
+                  <input type="number" name="durationHr" id="durationHr" required min="0.5" step="0.5" value={formData.durationHr} className="mt-1 block w-full border-gray-300 shadow-sm focus:border-[#5039f6] focus:ring-[#5039f6] px-2" placeholder="e.g., 1.5" onChange={handleInputChange}/>
                 </div>
               </div>
             )}
@@ -262,7 +262,7 @@ const AddListingForm = () => {
             )}
           </div>
           <div className="pt-6 border-t flex justify-center">
-            <button type="submit" disabled={loading} className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium text-white bg-[#5039f6] hover:bg-[#402dbf] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5039f6] disabled:opacity-50">
+            <button type="submit" disabled={loading} className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium text-white bg-[#5039f6] hover:bg-[#402dbf] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5039f6] disabled:opacity-50 cursor-pointer">
               {loading ? 'Creating...' : 'Create Listing'}
             </button>
           </div>

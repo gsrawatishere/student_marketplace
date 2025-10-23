@@ -30,6 +30,11 @@ model User {
   listings Listing[]
   refreshtokens RefreshToken[]
   profile Profile? 
+  
+  sentChats       Chat[]       @relation("SentChats")
+  receivedChats   Chat[]       @relation("ReceivedChats")
+  messagesSent    Message[]    @relation("MessagesSent")
+  messagesReceived Message[]   @relation("MessagesReceived")
 
   @@index([email])
 
@@ -180,3 +185,42 @@ model Wishlist_Listing {
 
 }
 
+
+model Chat {
+  id            String   @id @default(uuid())
+  senderId      String
+  receiverId    String
+  lastMessageId String?  @unique
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sender       User     @relation("SentChats", fields: [senderId], references: [id])
+  receiver     User     @relation("ReceivedChats", fields: [receiverId], references: [id])
+  messages     Message[] @relation("ChatMessages")
+  lastMessage  Message?  @relation("ChatLastMessage", fields: [lastMessageId], references: [id])
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([updatedAt])
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  chatId      String
+  senderId    String
+  receiverId  String
+  text        String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  chat        Chat     @relation("ChatMessages", fields: [chatId], references: [id], onDelete: Cascade)
+  lastForChat Chat?    @relation("ChatLastMessage")
+
+  sender      User     @relation("MessagesSent", fields: [senderId], references: [id])
+  receiver    User     @relation("MessagesReceived", fields: [receiverId], references: [id])
+
+  @@index([chatId])
+  @@index([senderId])
+  @@index([receiverId])
+}

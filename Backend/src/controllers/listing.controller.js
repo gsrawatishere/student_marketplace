@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import cloudinary from "../lib/cloudinary.js";
 
@@ -294,7 +294,24 @@ export const deleteListing = async (req,res)=>{
 
 export const editListing = async (req,res) =>{
   try {
-    const {listingId,title,price,description} = req.body;
+    const {listingId,title,price,description,location} = req.body;
+     if(!listingId){
+      return res.status(400).json({msg : "Listing id not found!"})
+    }
+    
+    const editedListing = await prisma.listing.update({
+      where : {id : listingId},
+      data : {
+         title,
+         price,
+         description,
+         location
+      }
+
+    })
+     
+    return res.status(200).json({ msg: "Listing updated successfully!", editedListing});
+
   } catch (error) {
     console.error("Error in editListing ",error);
     res.status(500).json({msg : "Failed to edit Listing! ",error});
@@ -306,10 +323,19 @@ export const getRecentListings = async (req,res) =>{
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-
+    const MAX_LISTINGS = 50;
     // 2. Calculate the number of records to skip (the offset).
     // For page 1, skip = 0. For page 2, skip = 10, etc.
     const skip = (page - 1) * limit;
+    
+    if (skip >= MAX_LISTINGS) {
+      return res.status(200).json({
+        msg: "You have reached the end of available listings.",
+        listings: [],
+        totalPages: Math.ceil(MAX_LISTINGS / limit),
+        currentPage: page,
+      });
+    }
 
     // 3. Fetch both the listings for the current page and the total count of all listings.
     // Using a Prisma transaction ensures both queries are executed together.
