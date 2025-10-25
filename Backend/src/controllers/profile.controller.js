@@ -84,3 +84,45 @@ export const updateProfile = async (req, res) => {
     return res.status(500).json({ msg: "Error in editProfile", error });
   }
 };
+
+export const ProfileByUserId = async (req, res) => {
+  try {
+    
+  const {id} = req.params;
+  
+    if (!id) {
+      return res.status(400).json({ msg: "No user id found!" });
+    }
+    const profile = await Prisma.user.findUnique({
+      where: { id },
+
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        institute: true,
+        degree: true,
+        year: true,
+        createdAt: true,
+        profile: {
+          select: {
+            id: true,
+            profilepic: true,
+            bio: true,
+            linkedin: true,
+            github: true,
+          },
+        },
+      },
+    });
+    if (!profile) {
+      return res
+        .status(400)
+        .json({ msg: "No profile found for given user id" });
+    }
+    return res.status(200).json({ profile });
+  } catch (error) {
+    console.error("Error in ProfileDetails", error);
+    return res.status(500).json({ msg: "Error in ProfileDetails", error });
+  }
+};

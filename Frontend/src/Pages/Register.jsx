@@ -5,6 +5,7 @@ import axiosInstance from "../Api/AxiosInstance";
 import toast from "react-hot-toast";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
+import OTPVerification from "../Components/OTPVerification";
 
 const Register = () => {
   const degrees = {
@@ -42,7 +43,7 @@ const Register = () => {
     Diploma: 2,
     Other: 1,
   };
-  
+
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +51,9 @@ const Register = () => {
   const [selectedDegree, setSelectedDegree] = useState("");
   const [years, setYears] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+  const [showOtpForm, setShowOtpForm] = useState(false);
+  const [userId, setUserId] = useState("");
+
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -63,24 +66,26 @@ const Register = () => {
     }
 
     try {
-      const response = await axiosInstance.post('/auth/register', {
+      const response = await axiosInstance.post("/auth/register", {
         email,
         fullName,
         password,
         degree: selectedDegree,
-        year: selectedYear
+        year: selectedYear,
       });
-      
+
       if (response.status === 200) {
         toast.success(response.data.msg);
+        setUserId(response.data.userId);
+        setShowOtpForm(true);
         // Clear all fields on success
-        setEmail("");
+        // setEmail("");
         setFullName("");
         setPassword("");
         setSelectedYear("");
         setSelectedDegree("");
-        setYears([]); 
-        navigate("/login")
+        setYears([]);
+        
       }
     } catch (error) {
       console.error("Failed to Register:", error);
@@ -90,6 +95,31 @@ const Register = () => {
       setLoading(false);
     }
   };
+
+  //submit otp
+  const handleSubmitOtp = async (otpValue)=>{
+     try {
+       const response = await axiosInstance.post("/auth/verify-otp",{
+            otp : otpValue,
+              userId
+       })
+       if(response.status == 200){
+         toast.success(response.data.msg);
+         setEmail("");
+         setShowOtpForm(false);
+         navigate("/login");
+       }
+     } catch (error) {
+      console.error("Failed to verify OTP:", error);
+      const errorMessage = error.response?.data?.msg || "Failed to verify OTP";
+      toast.error(errorMessage);
+     }
+  }
+  //close fn
+  const handleClose = async ()=>{
+    setEmail("");
+    setShowOtpForm(false);
+  }
 
   const handleDegree = (degree) => {
     setSelectedDegree(degree);
@@ -105,8 +135,15 @@ const Register = () => {
   };
 
   return (
-    <div> 
+    <div>
       {loading && <Loader />}
+      {showOtpForm && (
+        <OTPVerification
+          email={email}
+          onSubmit={handleSubmitOtp}
+          onClose={handleClose}
+        />
+      )}
       <div className="min-h-screen flex flex-col justify-center items-center w-full">
         <div className="flex flex-col items-center w-full p-6 sm:p-12">
           <div className="w-full max-w-md">
@@ -133,8 +170,10 @@ const Register = () => {
                       <User className="w-5 h-5 text-gray-400" />
                     </div>
                     <input
-                      value={fullName} 
-                      onChange={(e) => { setFullName(e.target.value) }}
+                      value={fullName}
+                      onChange={(e) => {
+                        setFullName(e.target.value);
+                      }}
                       type="text"
                       className="block w-full rounded-md border border-gray-300 pl-10 pr-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="Enter your full name"
@@ -151,8 +190,10 @@ const Register = () => {
                       <Mail className="w-5 h-5 text-gray-400" />
                     </div>
                     <input
-                      value={email} 
-                      onChange={(e) => { setEmail(e.target.value) }}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       type="email"
                       className="block w-full rounded-md border border-gray-300 pl-10 pr-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="Enter your academic mail"
@@ -170,7 +211,7 @@ const Register = () => {
                       <GraduationCap className="w-5 h-5 text-gray-400" />
                     </div>
                     <select
-                      value={selectedDegree} 
+                      value={selectedDegree}
                       className="block w-full rounded-md border border-gray-300 pl-10 pr-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => handleDegree(e.target.value)}
                       required
@@ -219,8 +260,10 @@ const Register = () => {
                       <Key className="w-5 h-5 text-gray-400" />
                     </div>
                     <input
-                      value={password} 
-                      onChange={(e) => { setPassword(e.target.value) }}
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       type="password"
                       className="block w-full rounded-md border border-gray-300 pl-10 pr-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="******"
@@ -240,7 +283,10 @@ const Register = () => {
               <div>
                 <p className="text-slate-700 font-md pt-4">
                   Already have an account?{" "}
-                  <Link to="/login" className="text-blue-900 underline">Login</Link> {/* ✅ FIX */}
+                  <Link to="/login" className="text-blue-900 underline">
+                    Login
+                  </Link>{" "}
+                  {/* ✅ FIX */}
                 </p>
               </div>
             </div>

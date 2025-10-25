@@ -10,6 +10,8 @@ const ListingInfo = React.memo(({ listing }) => {
   const isProduct = listing.type === "PRODUCT";
   const isService = listing.type === "SERVICE";
 
+  console.log(listing);
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-sm space-y-4">
       {/* Type & Status */}
@@ -32,7 +34,7 @@ const ListingInfo = React.memo(({ listing }) => {
       <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 tracking-tight">
         {listing.title}
       </h2>
-      <p className="text-2xl lg:text-3xl text-blue-600 font-light py-1">
+      <p className="text-2xl lg:text-3xl text-blue-600 py-1 font-semibold">
         ₹{listing.price}
       </p>
 
@@ -74,8 +76,12 @@ const ListingInfo = React.memo(({ listing }) => {
           {listing.description}
         </p>
       </div>
-
+     
       <p className="text-gray-600 text-sm lg:text-base pt-4">
+        <strong className="text-gray-800">Seller :</strong>{" "}
+        {listing.seller.fullName}
+      </p>
+      <p className="text-gray-600 text-sm lg:text-base ">
         <strong className="text-gray-800">Institute:</strong>{" "}
         {listing.institute}
       </p>
@@ -185,11 +191,15 @@ const ListingView = ({ listing }) => {
 
   const handleContactSeller = async () => {
     try {
-      const resposne = await axiosInstance.post('/chat/create-chat',{
+      const response = await axiosInstance.post('/chat/create-chat',{
         sellerId : listing.sellerId
       })
-      if(resposne.status == 200){
-        navigate('/all-chats');
+     
+      if(response.status == 200){
+        const chat = response.data.chat;
+          navigate("/all-chats", {
+        state: { selectedChatId: chat.id },
+      });
       }
     } catch (error) {
       console.error("Failed to contact seller :",error);

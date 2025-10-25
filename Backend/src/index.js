@@ -7,9 +7,11 @@ import listingroute from "./routes/listing.route.js"
 import wishlistroute from "./routes/wishlist.route.js"
 import profileroute from "./routes/profile.route.js"
 import chatroute from "./routes/chat.route.js"
+import { app,server,io } from "./lib/socket.js";
+import adminroute from './routes/admin.route.js'
 
 dotenv.config();
-const app = express();
+// const app = express();
 
 const corsOptions = {
   origin: 'http://localhost:5173', 
@@ -27,12 +29,13 @@ app.use("/api/v1/listing",listingroute);
 app.use("/api/v1/wishlist",wishlistroute);
 app.use("/api/v1/profile",profileroute);
 app.use("/api/v1/chat",chatroute);
+app.use("/api/v1/admin",adminroute);
 
 
 
 const PORT = process.env.PORT;
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
   console.log(`Server is running on port ${PORT}`);
 })
  

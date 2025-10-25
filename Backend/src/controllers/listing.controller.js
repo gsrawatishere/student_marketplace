@@ -178,7 +178,13 @@ export const getListingById = async (req,res) =>{
         const listings = await prisma.listing.findUnique({
           where : {id},
           include : {
-        images : true
+           images : true,
+           seller : {
+            select : {
+              id : true,
+              fullName : true
+            }
+           }
       }
         })
 
@@ -384,3 +390,49 @@ export const getRecentListings = async (req,res) =>{
     res.status(500).json({msg : "Failed to  getRecentListings! ",error});
   }
 }
+
+
+
+//search controller - optimise it in future
+
+export const getSearchResults = async (req, res) => {
+  try {
+    const { query } = req.query; 
+    
+    if (!query || !query.trim()) {
+      return res.status(400).json({ msg: "Search query is required" });
+    }
+
+    const listings = await prisma.listing.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+             
+            },
+          },
+          {
+            description: {
+              contains: query,
+              
+            },
+          },
+        ],
+      },
+      include: {
+        images: true,
+      },
+      orderBy: {
+        createdAt: "desc", 
+      },
+    });
+
+    res.status(200).json(listings);
+  } catch (error) {
+    console.error("Error in getSearchResults:", error);
+    res
+      .status(500)
+      .json({ msg: "Failed to get search results", error: error.message });
+  }
+};

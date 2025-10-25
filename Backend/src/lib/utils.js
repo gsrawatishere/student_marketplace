@@ -101,3 +101,22 @@ export const updateAccessToken = async (req, res) => {
     res.status(500).json({ msg: "Unable to update access token", error });
   }
 };
+
+
+// generate otp 
+
+
+export const generateOTP = async (userId) => {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min expiry
+
+  const otpRecord = await prisma.oTP.create({
+    data: {
+      userId,
+      otp,
+      expiresAt,
+    },
+  });
+
+  return otpRecord;
+};

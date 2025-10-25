@@ -17,6 +17,11 @@ import MyListings from "../Pages/MyListings";
 import GetListingDetails from "../Pages/GetListingDetails";
 import AllListingsBy from "../Pages/AllListingsBy";
 import ChatList from "../Pages/ChatList";
+import ChatContainer from "../Components/ChatContainer";
+import SearchListings from "../Pages/SearchListings";
+import ProfileById from "../Pages/ProfileById";
+import AdminLogin from "../Pages/AdminLogin";
+import AdminDashboard from "../Pages/AdminDashboard";
 
 
 const MyRoute = createBrowserRouter(
@@ -29,6 +34,10 @@ const MyRoute = createBrowserRouter(
       <Route path="/addlisting" element={<AddListingForm/>} />
       <Route path="/my-listings" element={<MyListings/>} />
       <Route path='/all-chats' element={<ChatList/>} />
+      <Route path='/chat' element={<ChatContainer/>} />
+      <Route path='/profiledata/:id' element={<ProfileById/>}/>
+      <Route path='/admin-login' element={<AdminLogin/>} />
+      <Route path='/admin-dashboard' element={<AdminDashboard/>} />
       
 
       {/* With navbar and footer */}
@@ -37,7 +46,8 @@ const MyRoute = createBrowserRouter(
       <Route path="/list" element={<ListingListCard/>}/>
       <Route path='/listing/:id' element={<GetListingDetails/>} />
       <Route path='/all/:id' element={<AllListingsBy/>} />
-
+      <Route path='/search' element={<SearchListings/>} />
+      
       </Route>
       </>
 ));

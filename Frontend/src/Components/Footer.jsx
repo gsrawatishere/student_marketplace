@@ -16,10 +16,10 @@ return (
       <div>
         <h3 className="text-lg font-semibold mb-3 border-b border-white pb-1">Quick Links</h3>
         <ul className="space-y-2 text-white text-sm">
-          <li><a href="/about" className="hover:text-indigo-500 transition">About Us</a></li>
-          <li><a href="/listings" className="hover:text-indigo-500 transition">Browse Listings</a></li>
-          <li><a href="/sell" className="hover:text-indigo-500 transition">Sell an Item</a></li>
-          <li><a href="/contact" className="hover:text-indigo-500 transition">Contact</a></li>
+          <li><a href="#" className="hover:text-indigo-500 transition">About Us</a></li>
+          <li><a href="/my-listings" className="hover:text-indigo-500 transition">Browse Listings</a></li>
+          <li><a href="/addlisting" className="hover:text-indigo-500 transition">Sell an Item</a></li>
+          <li><a href="#" className="hover:text-indigo-500 transition">Contact</a></li>
         </ul>
       </div>
 
@@ -27,9 +27,9 @@ return (
       <div>
         <h3 className="text-lg font-semibold mb-3 border-b border-white pb-1">Support</h3>
         <ul className="space-y-2 text-white text-sm">
-          <li><a href="/faq" className="hover:text-indigo-500 transition">FAQs</a></li>
-          <li><a href="/terms" className="hover:text-indigo-500 transition">Terms & Conditions</a></li>
-          <li><a href="/privacy" className="hover:text-indigo-500 transition">Privacy Policy</a></li>
+          <li><a href="#" className="hover:text-indigo-500 transition">FAQs</a></li>
+          <li><a href="#" className="hover:text-indigo-500 transition">Terms & Conditions</a></li>
+          <li><a href="#" className="hover:text-indigo-500 transition">Privacy Policy</a></li>
         </ul>
       </div>
 

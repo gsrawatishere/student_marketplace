@@ -24,11 +24,12 @@ model User {
   degree String
   year String
   createdAt DateTime @default(now())
-
+  isVerified Boolean @default(false)
   //relations
   wishlist Wishlist?
   listings Listing[]
   refreshtokens RefreshToken[]
+  otp OTP[]
   profile Profile? 
   
   sentChats       Chat[]       @relation("SentChats")
@@ -38,6 +39,16 @@ model User {
 
   @@index([email])
 
+}
+
+model OTP {
+  id String @id @default(uuid())
+  userId String
+  otp String
+  isUsed Boolean @default(false)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Profile{
