@@ -17,10 +17,10 @@ export const SocketProvider = ({ children }) => {
     }
 
     // Use env variable so it works in production too
-    const SOCKET_URL =
-      import.meta.env.VITE_SOCKET_URL || "http://localhost:4001";
+    const VITE_BACKEND_URL =
+      import.meta.env.VITE_BACKEND_URL|| "http://localhost:4001";
 
-    const newSocket = io(SOCKET_URL, {
+    const newSocket = io(VITE_BACKEND_URL, {
       withCredentials: true,
       transports: ["websocket"], // optional: helps with CORS & speed
     });

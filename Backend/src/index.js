@@ -16,7 +16,7 @@ dotenv.config();
 const FRONTEND_URL=process.env.FRONTEND_URL;
 
 const corsOptions = {
-  origin: 'http://localhost:5173', 
+  origin: FRONTEND_URL, 
   credentials: true, 
   optionsSuccessStatus: 200 
 };
