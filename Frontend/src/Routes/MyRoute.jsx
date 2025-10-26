@@ -23,7 +23,7 @@ import AdminDashboard from "../pages/AdminDashboard";
 import RootLayout from "./rootLayout"; // Import the RootLayout
 
 
-const MyRoute = createBrowserRouter(
+const myRoute = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout />}>
       {/* All routes now have access to AuthProvider and SocketProvider */}
@@ -51,4 +51,4 @@ const MyRoute = createBrowserRouter(
   )
 );
 
-export default MyRoute;
+export default myRoute;
