@@ -20,7 +20,7 @@ import SearchListings from "../pages/SearchListings";
 import ProfileById from "../pages/ProfileById";
 import AdminLogin from "../pages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
-import RootLayout from "./RootLayout"; // Import the RootLayout
+import RootLayout from "./rootLayout"; // Import the RootLayout
 
 
 const MyRoute = createBrowserRouter(
