@@ -21,7 +21,7 @@ import {
   Linkedin,
   Github,
 } from "lucide-react";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 
 import Loader from "../Components/Loader";
 import toast from "react-hot-toast";

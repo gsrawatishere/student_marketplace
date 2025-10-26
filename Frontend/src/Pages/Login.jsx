@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { School, Mail, Key } from "lucide-react";
 import toast from "react-hot-toast";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
 import OTPVerification from "../Components/OTPVerification";

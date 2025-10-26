@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import { useAuth } from "../Context/AuthContext";
 import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../Api/AxiosInstance';
+import axiosInstance from '../api/AxiosInstance';
 import Loader from '../Components/Loader'
 import { useSearchParams } from 'react-router-dom';
 import ListingListCard from '../Components/ListingListCard';

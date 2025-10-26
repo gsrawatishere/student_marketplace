@@ -9,7 +9,7 @@ import {
   Camera,
   X,
 } from "lucide-react";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import toast from "react-hot-toast";
 import Loader from "../Components/Loader";
 import avatar from "../../public/avatar.png";

@@ -1,7 +1,7 @@
 import React from 'react'
 import ChatCard from '../Components/ChatCard'
 import { useState } from 'react'
-import axiosInstance from '../Api/AxiosInstance';
+import axiosInstance from '../api/AxiosInstance';
 import Loader from '../Components/Loader'
 import { useEffect } from 'react';
 import { useAuth } from '../Context/AuthContext';

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import MyListingsCard from "../Components/MyListingsCard";
 import { useState } from "react";
 import PageHeader from "../Components/PageHeader";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import Loader from "../Components/Loader";
 import DeleteWarningModal from "../Components/DeleteWarningModel";
 import toast from 'react-hot-toast'

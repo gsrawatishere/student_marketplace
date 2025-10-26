@@ -1,6 +1,6 @@
 import { Children } from "react";
 import { createContext, useState, useContext, useEffect } from "react";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { School, Mail, Key, User, GraduationCap, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../Api/AxiosInstance";
+import axiosInstance from "../api/AxiosInstance";
 import toast from "react-hot-toast";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
