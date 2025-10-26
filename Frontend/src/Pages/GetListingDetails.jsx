@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ListingDetail from '../Components/ListingView';
-import axiosInstance from '../api/AxiosInstance';
-import Loader from '../Components/Loader'
+import ListingDetail from '../components/ListingView';
+import axiosInstance from '../api/axiosinstance';
+import Loader from '../components/Loader'
 import { useParams} from "react-router-dom";
 
 

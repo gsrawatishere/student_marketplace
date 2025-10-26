@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import MyListingsCard from "../Components/MyListingsCard";
+import MyListingsCard from "../components/MyListingsCard";
 import { useState } from "react";
-import PageHeader from "../Components/PageHeader";
-import axiosInstance from "../api/AxiosInstance";
-import Loader from "../Components/Loader";
-import DeleteWarningModal from "../Components/DeleteWarningModel";
+import PageHeader from "../components/PageHeader";
+import axiosInstance from "../api/axiosinstance";
+import Loader from "../components/Loader";
+import DeleteWarningModal from "../components/DeleteWarningModel";
 import toast from 'react-hot-toast'
-import EditListing from "../Components/EditListing";
+import EditListing from "../components/EditListing";
 
 
 const MyListings = () => {

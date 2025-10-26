@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListingCard from "./ListingCard";
-import axiosInstance from "../api/AxiosInstance";
-import Loader from "../Components/Loader"; // Make sure you have a Loader component
-import useIntersectionObserver from "../Hooks/IntersectionObserver";
+import axiosInstance from "../api/axiosinstance";
+import Loader from "./Loader"; // Make sure you have a Loader component
+import useIntersectionObserver from "../hooks/IntersectionObserver";
 
 const Recommandations = () => {
   const [listings, setListings] = useState([]);

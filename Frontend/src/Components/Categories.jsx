@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../api/AxiosInstance'
+import axiosInstance from '../api/axiosinstance'
 import Loader from './Loader'
 import { useNavigate } from 'react-router-dom'
 

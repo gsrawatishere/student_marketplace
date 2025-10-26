@@ -1,9 +1,9 @@
 import React from 'react'
-import Navbar from './Components/Navbar'
-import Footer from './Components/Footer'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import { Outlet } from 'react-router-dom'
-import { AuthProvider } from './Context/AuthContext'
-import { SocketProvider } from './Context/SocketContetx'
+import { AuthProvider } from './context/AuthContext'
+import { SocketProvider } from './context/SocketContetx'
 
 const App = () => {
   return (

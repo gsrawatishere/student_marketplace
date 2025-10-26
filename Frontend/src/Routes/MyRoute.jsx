@@ -4,22 +4,22 @@ import {
   Route,
 } from "react-router-dom";
 import App from "../App";
-import Login from "../Pages/Login";
-import Register from "../Pages/Register";
-import ListingListCard from "../Components/ListingListCard";
-import Home from "../Pages/Home";
-import Wishlist from "../Pages/Wishlist";
-import Profile from "../Pages/Profile";
-import AddListingForm from "../Pages/AddListingForm";
-import MyListings from "../Pages/MyListings";
-import GetListingDetails from "../Pages/GetListingDetails";
-import AllListingsBy from "../Pages/AllListingsBy";
-import ChatList from "../Pages/ChatList";
-import ChatContainer from "../Components/ChatContainer";
-import SearchListings from "../Pages/SearchListings";
-import ProfileById from "../Pages/ProfileById";
-import AdminLogin from "../Pages/AdminLogin";
-import AdminDashboard from "../Pages/AdminDashboard";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ListingListCard from "../components/ListingListCard";
+import Home from "../pages/Home";
+import Wishlist from "../pages/Wishlist";
+import Profile from "../pages/Profile";
+import AddListingForm from "../pages/AddListingForm";
+import MyListings from "../pages/MyListings";
+import GetListingDetails from "../pages/GetListingDetails";
+import AllListingsBy from "../pages/AllListingsBy";
+import ChatList from "../pages/ChatList";
+import ChatContainer from "../components/ChatContainer";
+import SearchListings from "../pages/SearchListings";
+import ProfileById from "../pages/ProfileById";
+import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
 import RootLayout from "./RootLayout"; // Import the RootLayout
 
 

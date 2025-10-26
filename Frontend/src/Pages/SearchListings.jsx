@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/AxiosInstance';
-import Loader from '../Components/Loader'
+import axiosInstance from '../api/axiosinstance';
+import Loader from '../components/Loader'
 import { useSearchParams } from 'react-router-dom';
-import ListingListCard from '../Components/ListingListCard';
+import ListingListCard from '../components/ListingListCard';
 
 
 const SearchListings = () => {

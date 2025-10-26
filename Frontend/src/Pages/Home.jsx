@@ -1,9 +1,9 @@
 import React from 'react'
-import Navbar from '../Components/Navbar'
-import ImageSlider from '../Components/ImageSlider'
-import Categories from '../Components/Categories'
-import Recommandations from '../Components/Recommandations'
-import Footer from '../Components/Footer'
+import Navbar from '../components/Navbar'
+import ImageSlider from '../components/ImageSlider'
+import Categories from '../components/Categories'
+import Recommandations from '../components/Recommandations'
+import Footer from '../components/Footer'
 
 const Home = () => {
   return (

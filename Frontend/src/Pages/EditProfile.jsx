@@ -9,9 +9,9 @@ import {
   Camera,
   X,
 } from "lucide-react";
-import axiosInstance from "../api/AxiosInstance";
+import axiosInstance from "../api/axiosinstance";
 import toast from "react-hot-toast";
-import Loader from "../Components/Loader";
+import Loader from "../components/Loader";
 import avatar from "../../public/avatar.png";
 
 export const EditProfile = ({ initialData, onClose, getData}) => {

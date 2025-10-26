@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { School, Mail, Key } from "lucide-react";
 import toast from "react-hot-toast";
-import axiosInstance from "../api/AxiosInstance";
-import Loader from "../Components/Loader";
+import axiosInstance from "../api/axiosinstance";
+import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
-import OTPVerification from "../Components/OTPVerification";
-import ResetPasswordEmail from "../Components/ResetPasswordEmail";
-import ResetPasswordInput from "../Components/ResetPasswordInput";
+import OTPVerification from "../components/OTPVerification";
+import ResetPasswordEmail from "../components/ResetPasswordEmail";
+import ResetPasswordInput from "../components/ResetPasswordInput";
 
 const Login = () => {
   const [email, setEmail] = useState("");

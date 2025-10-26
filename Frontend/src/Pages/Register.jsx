@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { School, Mail, Key, User, GraduationCap, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../api/AxiosInstance";
+import axiosInstance from "../api/axiosinstance";
 import toast from "react-hot-toast";
-import Loader from "../Components/Loader";
+import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
-import OTPVerification from "../Components/OTPVerification";
+import OTPVerification from "../components/OTPVerification";
 
 const Register = () => {
   const degrees = {

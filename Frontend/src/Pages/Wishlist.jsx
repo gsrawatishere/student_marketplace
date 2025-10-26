@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import WishListCard from '../Components/WishListCard'
+import WishListCard from '../components/WishListCard'
 import { useState } from 'react';
-import PageHeader from '../Components/PageHeader';
-import axiosInstance from '../api/AxiosInstance';
-import Loader from '../Components/Loader';
+import PageHeader from '../components/PageHeader';
+import axiosInstance from '../api/axiosinstance';
+import Loader from '../components/Loader';
 import toast from 'react-hot-toast';
 
 

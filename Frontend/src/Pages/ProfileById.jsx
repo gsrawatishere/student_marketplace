@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "../Components/ProfileCards";
+import { Card, CardContent } from "../components/ProfileCards";
 import avatar from "../../public/avatar.png";
-import PageHeader from "../Components/PageHeader";
+import PageHeader from "../components/PageHeader";
 import { useParams } from "react-router-dom";
 
 
@@ -20,8 +20,8 @@ import {
   Linkedin,
   Github,
 } from "lucide-react";
-import axiosInstance from "../api/AxiosInstance";
-import Loader from "../Components/Loader";
+import axiosInstance from "../api/axiosinstance";
+import Loader from "../components/Loader";
 
 
 const ProfileById = () => {

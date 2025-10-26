@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Package, Wrench, Image as ImageIcon, X } from 'lucide-react';
-import axiosInstance from '../api/AxiosInstance';
+import axiosInstance from '../api/axiosinstance';
 import toast from 'react-hot-toast';
-import Loader from '../Components/Loader'; 
+import Loader from '../components/Loader'; 
 import { useNavigate } from 'react-router-dom';
 
 const AddListingForm = () => {

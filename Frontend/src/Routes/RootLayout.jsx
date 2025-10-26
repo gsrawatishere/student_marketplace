@@ -1,5 +1,5 @@
-import { AuthProvider } from "../Context/AuthContext";
-import { SocketProvider } from "../Context/SocketContetx";
+import { AuthProvider } from "../context/AuthContext";
+import { SocketProvider } from "../context/SocketContetx";
 import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {

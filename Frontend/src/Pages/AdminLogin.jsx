@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { School, Mail, Key } from "lucide-react";
 import toast from "react-hot-toast";
-import axiosInstance from "../api/AxiosInstance";
-import Loader from "../Components/Loader";
+import axiosInstance from "../api/axiosinstance";
+import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {

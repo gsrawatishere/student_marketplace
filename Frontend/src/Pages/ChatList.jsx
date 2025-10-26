@@ -1,11 +1,11 @@
 import React from 'react'
-import ChatCard from '../Components/ChatCard'
+import ChatCard from '../components/ChatCard'
 import { useState } from 'react'
-import axiosInstance from '../api/AxiosInstance';
-import Loader from '../Components/Loader'
+import axiosInstance from '../api/axiosinstance';
+import Loader from '../components/Loader'
 import { useEffect } from 'react';
-import { useAuth } from '../Context/AuthContext';
-import ChatContainer from '../Components/ChatContainer';
+import { useAuth } from '../context/AuthContext';
+import ChatContainer from '../components/ChatContainer';
 import { useLocation } from "react-router-dom";
 
 

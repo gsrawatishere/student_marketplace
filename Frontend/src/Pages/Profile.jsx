@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Button from "../Components/ProfileButton";
-import { Card, CardContent } from "../Components/ProfileCards";
+import Button from "../components/ProfileButton";
+import { Card, CardContent } from "../components/ProfileCards";
 import avatar from "../../public/avatar.png";
-import PageHeader from "../Components/PageHeader";
+import PageHeader from "../components/PageHeader";
 import { EditProfile } from "./EditProfile";
 import { useNavigate } from "react-router-dom";
 
@@ -21,9 +21,9 @@ import {
   Linkedin,
   Github,
 } from "lucide-react";
-import axiosInstance from "../api/AxiosInstance";
+import axiosInstance from "../api/axiosinstance";
 
-import Loader from "../Components/Loader";
+import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 
 const Profile = () => {

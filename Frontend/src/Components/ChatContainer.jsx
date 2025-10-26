@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import axiosInstance from "../api/AxiosInstance";
-import { useAuth } from "../Context/AuthContext";
+import axiosInstance from "../api/axiosinstance";
+import { useAuth } from "../context/AuthContext";
 import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
-import { useSocket } from "../Context/SocketContetx";
+import { useSocket } from "../context/SocketContetx";
 
 const ChatContainer = ({ chat }) => {
   const { user } = useAuth();

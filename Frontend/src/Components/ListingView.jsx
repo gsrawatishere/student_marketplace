@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import axiosInstance from "../api/AxiosInstance";
+import axiosInstance from "../api/axiosinstance";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast'
 

@@ -1,7 +1,10 @@
 import axios from 'axios';
+const VITE_BACKEND_URL =
+      import.meta.env.VITE_BACKEND_URL;
+
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4001/api/v1',
+  baseURL:VITE_BACKEND_URL,
   withCredentials: true, // This is essential for sending secure cookies
 });
 
