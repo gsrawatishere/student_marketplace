@@ -66,6 +66,13 @@ const Profile = () => {
   if (loading) {
     return <Loader />;
   }
+if (!userData || !userData.profile) {
+  return (
+    <div className="flex justify-center items-center min-h-screen">
+      <p>Could not load profile data.</p>
+    </div>
+  );
+}
 
   // data for edit profile
   const initailData = {

@@ -187,7 +187,7 @@ export const sendMessage = async (req,res)=>{
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("receiveMessage", message);
     }
-    console.log(receiverSocketId)
+    console.log("rec socekt Id",receiverSocketId)
     const senderSocketId = connectedUsers.get(senderId);
     if (senderSocketId) {
       io.to(senderSocketId).emit("messageSent", message);

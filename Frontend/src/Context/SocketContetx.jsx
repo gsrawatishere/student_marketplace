@@ -9,18 +9,41 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      const newSocket = io("http://localhost:4001", {
-        withCredentials: true,
-      });
-
-      newSocket.emit("registerUser", user.id);
-      setSocket(newSocket);
-
-      return () => {
-        newSocket.disconnect();
-      };
+    if (!user) {
+      // If user logs out, disconnect existing socket
+      if (socket) socket.disconnect();
+      setSocket(null);
+      return;
     }
+
+    // Use env variable so it works in production too
+    const SOCKET_URL =
+      import.meta.env.VITE_SOCKET_URL || "http://localhost:4001";
+
+    const newSocket = io(SOCKET_URL, {
+      withCredentials: true,
+      transports: ["websocket"], // optional: helps with CORS & speed
+    });
+
+    // Wait for actual connection
+    newSocket.on("connect", () => {
+      console.log("✅ Connected to socket:", newSocket.id);
+      newSocket.emit("registerUser", user.id);
+      console.log("🧑‍💻 Registered user:", user.id);
+    });
+
+    // Handle reconnection automatically
+    newSocket.on("reconnect", () => {
+      console.log("🔁 Reconnected:", newSocket.id);
+      newSocket.emit("registerUser", user.id);
+    });
+
+    setSocket(newSocket);
+
+    // Cleanup on unmount or logout
+    return () => {
+      newSocket.disconnect();
+    };
   }, [user]);
 
   return (
