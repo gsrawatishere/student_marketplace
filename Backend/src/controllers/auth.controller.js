@@ -134,6 +134,7 @@ export const login = async (req, res) => {
   }
 };
 
+ 
 //logout
 
 export const logout = async (req, res) => {
@@ -141,13 +142,15 @@ export const logout = async (req, res) => {
     res.cookie("refreshToken", "", {
       maxAge: 0,
       httpOnly: true,
-      sameSite: true,
+      sameSite: none,
+      secure: true,
     });
 
     res.cookie("accessToken", "", {
       maxAge: 0,
       httpOnly: true,
-      sameSite: true,
+      sameSite: none,
+      secure: true,
     });
 
     return res.status(200).json({ msg: "Logged out successfully!" });
