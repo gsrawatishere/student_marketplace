@@ -24,6 +24,7 @@ export const SocketProvider = ({ children }) => {
       transports: ["websocket"], // Helps on Render
       reconnection: true,
       reconnectionAttempts: 5,
+      secure: true,
     });
 
     newSocket.on("connect", () => {
