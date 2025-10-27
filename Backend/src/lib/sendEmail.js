@@ -4,8 +4,8 @@ export const sendEmail = async ({ to, subject, text, html }) => {
   try {
 
 console.log('--- Initializing Nodemailer ---');
-console.log('EMAIL_HOST from env:', process.env.EMAIL_HOST);
-console.log('EMAIL_PORT from env:', process.env.EMAIL_PORT);
+console.log('EMAIL_HOST from env:', process.env.SMTP_HOST);
+console.log('EMAIL_PORT from env:', process.env.SMTP_PORT);
 console.log('SMTP_USER from env:', process.env.SMTP_USER);
 console.log('SMTP_PASS from env:', process.env.SMTP_PASS);
 console.log('-----------------------------');
