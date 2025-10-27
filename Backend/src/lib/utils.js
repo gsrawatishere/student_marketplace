@@ -15,7 +15,7 @@ export const generateAccessToken = (id, res) => {
     res.cookie("accessToken", accessToken, {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
     });
     return accessToken;
   } catch (error) {
@@ -34,7 +34,7 @@ export const generateRefreshToken = (id, res) => {
     res.cookie("refreshToken", refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
     });
     return refreshToken;
   } catch (error) {
@@ -92,7 +92,7 @@ export const updateAccessToken = async (req, res) => {
     res.cookie("accessToken", newAccessToken, {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
     });
 
     return res.status(200).json({ msg: "Access token updated" });
