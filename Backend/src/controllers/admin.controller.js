@@ -29,12 +29,15 @@ export const adminLogin = async (req, res) => {
 };
 
 
+
+
 export const Adminlogout = async (req, res) => {
   try {
     res.cookie("refreshToken", "", {
       maxAge: 0,
       httpOnly: true,
-      sameSite: true,
+      sameSite: "none",
+      secure : true
     });
 
 
