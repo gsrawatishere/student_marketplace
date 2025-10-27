@@ -32,7 +32,9 @@ app.use("/api/v1/profile",profileroute);
 app.use("/api/v1/chat",chatroute);
 app.use("/api/v1/admin",adminroute);
 
-
+app.get("/ping",(req,res)=>{
+  res.status(200).send("Server is awake");
+})
 
 const PORT = process.env.PORT;
 
