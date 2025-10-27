@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 dotenv.config();
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+import prisma from "../lib/prisma.js";
 
 //generate accesstoken
 
@@ -109,9 +110,26 @@ export const updateAccessToken = async (req, res) => {
 // generate otp 
 
 
+// export const generateOTP = async (userId) => {
+//   const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+//   const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min expiry
+
+//   const otpRecord = await prisma.oTP.create({
+//     data: {
+//       userId,
+//       otp,
+//       expiresAt,
+//     },
+//   });
+
+//   return otpRecord;
+// };
+
 export const generateOTP = async (userId) => {
-  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
-  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min expiry
+  await prisma.$connect(); // ensures DB ready after Railway sleep
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
   const otpRecord = await prisma.oTP.create({
     data: {
