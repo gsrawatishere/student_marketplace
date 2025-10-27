@@ -1,0 +1,47 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const ListingCard = ({ listing }) => {
+  // A check to prevent errors if the images array is empty
+  const imageUrl = listing.images?.[0]?.url || 'https://via.placeholder.com/150';
+   const navigate = useNavigate();
+
+  return (
+    // --- FIX: Removed fixed widths (w-36, sm:w-44, md:w-52), margin (m-3), and flex-shrink-0 ---
+    // Added 'w-full' to make the card responsive to the parent grid.
+    <div
+      onClick={()=>{navigate(`/listing/${listing.id}`)}}
+    className="w-full cursor-pointer rounded-lg text-center pb-4 relative duration-300 hover:scale-105 transition-all p-1">
+      {/* Listing Image */}
+      <div className="relative w-full h-32 sm:h-36 md:h-40 overflow-hidden rounded-md">
+        <img
+          className="w-full h-full object-cover"
+          src={imageUrl}
+          alt={listing.title}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1 mt-2">
+        <div className="text-lg sm:text-xl font-bold text-indigo-600 text-center">
+          ₹{listing.price}
+        </div>
+        <h2 className="text-xs sm:text-sm font-medium text-slate-500 line-clamp-1">
+          {listing.title}
+        </h2>
+        <div className="flex justify-between items-center pt-2">
+          <div className="font-light text-slate-500 text-[10px] md:text-[12px]">
+            {new Date(listing.createdAt).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+            })}
+          </div>
+          <div className="text-[10px] md:text-[12px] font-medium text-indigo-700 px-1 py-0.5 rounded-sm">
+            {listing.type}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ListingCard;
