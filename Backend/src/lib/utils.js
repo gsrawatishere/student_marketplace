@@ -16,6 +16,7 @@ export const generateAccessToken = (id, res) => {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
       sameSite: "none",
+        secure: true,
     });
     return accessToken;
   } catch (error) {
@@ -35,6 +36,7 @@ export const generateRefreshToken = (id, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       sameSite: "none",
+        secure: true,
     });
     return refreshToken;
   } catch (error) {
@@ -93,6 +95,7 @@ export const updateAccessToken = async (req, res) => {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
       sameSite: "none",
+        secure: true,
     });
 
     return res.status(200).json({ msg: "Access token updated" });
