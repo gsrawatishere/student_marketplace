@@ -53,20 +53,24 @@ export const register = async (req, res) => {
     userId: newUser.id, 
   },
 });
-    const otpRecord = await generateOTP(newUser.id);
+    // const otpRecord = await generateOTP(newUser.id);
 
-     const emailSent = await sendEmail({
-      to: newUser.email,
-      subject: "Your OTP Verification Code",
-      text: `Your OTP is ${otpRecord.otp}. It will expire in 10 minutes.`,
-      html: `<p>Your OTP is <strong>${otpRecord.otp}</strong>. It will expire in 10 minutes.</p>`,
-    });
+    //  const emailSent = await sendEmail({
+    //   to: newUser.email,
+    //   subject: "Your OTP Verification Code",
+    //   text: `Your OTP is ${otpRecord.otp}. It will expire in 10 minutes.`,
+    //   html: `<p>Your OTP is <strong>${otpRecord.otp}</strong>. It will expire in 10 minutes.</p>`,
+    // });
 
-    if (!emailSent) return res.status(500).json({ msg: "Failed to send OTP email" }); 
+    // if (!emailSent) return res.status(500).json({ msg: "Failed to send OTP email" }); 
+
+    // return res
+    //   .status(200)
+    //   .json({ msg: "User created! Please check your email for the OTP.", userId: newUser.id });
 
     return res
       .status(200)
-      .json({ msg: "User created! Please check your email for the OTP.", userId: newUser.id });
+      .json({ msg: "User created! Please login.", userId: newUser.id });
   } catch (error) {
     console.error("Error in register route", error);
     res.status(500).json({ msg: "Error in user registration", error });
@@ -106,23 +110,23 @@ export const login = async (req, res) => {
     });
 
       
-     if(!existUser.isVerified){
-      const otpRecord = await generateOTP(existUser.id);
+    //  if(!existUser.isVerified){
+    //   const otpRecord = await generateOTP(existUser.id);
 
-     const emailSent = await sendEmail({
-      to: existUser.email,
-      subject: "Your OTP Verification Code",
-      text: `Your OTP is ${otpRecord.otp}. It will expire in 10 minutes.`,
-      html: `<p>Your OTP is <strong>${otpRecord.otp}</strong>. It will expire in 10 minutes.</p>`,
-    });
-       if (!emailSent)
-        return res.status(500).json({ msg: "Failed to send OTP email" });
-        console.log(existUser.id)
-      return res.status(202).json({
-        msg: "Please verify your email!",
-        userId: existUser.id,
-      });
-    }
+    //  const emailSent = await sendEmail({
+    //   to: existUser.email,
+    //   subject: "Your OTP Verification Code",
+    //   text: `Your OTP is ${otpRecord.otp}. It will expire in 10 minutes.`,
+    //   html: `<p>Your OTP is <strong>${otpRecord.otp}</strong>. It will expire in 10 minutes.</p>`,
+    // });
+    //    if (!emailSent)
+    //     return res.status(500).json({ msg: "Failed to send OTP email" });
+    //     console.log(existUser.id)
+    //   return res.status(202).json({
+    //     msg: "Please verify your email!",
+    //     userId: existUser.id,
+    //   });
+    // }
      return res.status(200).json({ msg: "Login Success!" });
   } catch (error) {
     console.error("Error in login router", error);

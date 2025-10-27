@@ -4,13 +4,14 @@ import "swiper/css";
 import axiosInstance from "../api/axiosinstance";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast'
+import Loader from "./Loader";
 
 
 const ListingInfo = React.memo(({ listing }) => {
   const isProduct = listing.type === "PRODUCT";
   const isService = listing.type === "SERVICE";
 
-  console.log(listing);
+ 
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-sm space-y-4">
@@ -143,6 +144,7 @@ const ListingView = ({ listing }) => {
   );
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [inWishlist, setInwishlist] = useState(false);
+   const [loading,setloading] = useState(false);
   const navigate = useNavigate();
 
   const isOutOfStock = useMemo(
@@ -190,6 +192,7 @@ const ListingView = ({ listing }) => {
   }
 
   const handleContactSeller = async () => {
+    setloading(true);
     try {
       const response = await axiosInstance.post('/chat/create-chat',{
         sellerId : listing.sellerId
@@ -205,10 +208,13 @@ const ListingView = ({ listing }) => {
       console.error("Failed to contact seller :",error);
       const errorMsg = error.response?.data.msg || "Failed to contact seller"
       toast.error(errorMsg);
+    }finally{
+      setloading(false);
     }
   };
 
   const handleSaveForLater = async () => {
+    setloading(true);
     try {
        const response =await axiosInstance.get(`/wishlist/add/${listing.id}`);
        if(response.status == 200){
@@ -216,6 +222,8 @@ const ListingView = ({ listing }) => {
        }
     } catch (error) {
       console.log("failed to add in wishlist : ",error);
+    } finally{
+      setloading(false);
     }
   };
 
@@ -235,6 +243,8 @@ const ListingView = ({ listing }) => {
   );
 
   return (
+    <div>
+      {loading && <Loader/>}
     <div className="w-full flex flex-col lg:flex-row gap-6 bg-gray-50 min-h-screen p-4">
       {/* Left Thumbnails (Desktop) */}
       <div className="hidden lg:flex flex-col gap-4 ">
@@ -318,6 +328,7 @@ const ListingView = ({ listing }) => {
             outline
           />
       </div>
+    </div>
     </div>
   );
 };

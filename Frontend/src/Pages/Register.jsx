@@ -77,7 +77,7 @@ const Register = () => {
       if (response.status === 200) {
         toast.success(response.data.msg);
         setUserId(response.data.userId);
-        setShowOtpForm(true);
+        // setShowOtpForm(true);
         // Clear all fields on success
         // setEmail("");
         setFullName("");
