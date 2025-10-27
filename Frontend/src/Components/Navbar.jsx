@@ -35,7 +35,7 @@ const Navbar = () => {
             <School className=" md:size-7 size-6 text-indigo-100" />
           </div>
           <div className="font-semibold text-lg sm:text-xl md:text-2xl">
-            CampusX
+            campusKart
           </div>
         </div>
 
