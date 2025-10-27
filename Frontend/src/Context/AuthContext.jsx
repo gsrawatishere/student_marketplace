@@ -19,9 +19,17 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       if (error.response?.status === 403) {
         console.warn("User not authenticated. Logging out...");
-        if (!location.pathname.startsWith("/admin")) {
+        const path = location.pathname;
+
+        // ✅ Don't redirect for admin routes or registration pages
+        const isAdminRoute = path.startsWith("/admin");
+        const isRegisterRoute =
+          path.startsWith("/register") || path.startsWith("/signup");
+
+        if (!isAdminRoute && !isRegisterRoute) {
           navigate("/login");
         }
+
         setUser(null);
       } else {
         console.error("Failed to fetch user in context:", error);
@@ -32,14 +40,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // ✅ Skip fetch for admin routes
-    if (!location.pathname.startsWith("/admin")) {
+    const path = location.pathname;
+
+    // ✅ Skip fetching user for admin or register routes
+    const isAdminRoute = path.startsWith("/admin");
+    const isRegisterRoute =
+      path.startsWith("/register") || path.startsWith("/signup");
+
+    if (!isAdminRoute && !isRegisterRoute) {
       fetchUser();
     } else {
       setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]); // 👈 Trigger on route change, not user state
+  }, [location.pathname]);
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
