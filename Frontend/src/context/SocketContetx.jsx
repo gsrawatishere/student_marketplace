@@ -9,42 +9,48 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      // If user logs out, disconnect existing socket
+    // 🧹 Clean up if user logs out
+    if (!user?.id) {
       if (socket) socket.disconnect();
       setSocket(null);
       return;
     }
 
-    // Use env variable so it works in production too
-    const VITE_SOCKET_SERVER =
-      import.meta.env.VITE_SOCKET_SERVER|| "http://localhost:4001";
+    const SOCKET_SERVER = import.meta.env.VITE_SOCKET_SERVER;
+    console.log("🔌 Connecting to socket server:", SOCKET_SERVER);
 
-    const newSocket = io(VITE_SOCKET_SERVER, {
+    const newSocket = io(SOCKET_SERVER, {
       withCredentials: true,
-      transports: ["websocket"], // optional: helps with CORS & speed
+      transports: ["websocket"], // Helps on Render
+      reconnection: true,
+      reconnectionAttempts: 5,
     });
 
-    // Wait for actual connection
     newSocket.on("connect", () => {
-      console.log("✅ Connected to socket:", newSocket.id);
-      newSocket.emit("registerUser", user.id);
-      console.log("🧑‍💻 Registered user:", user.id);
+      console.log("✅ Socket connected:", newSocket.id);
+      // Only emit when user.id is present
+      if (user?.id) {
+        newSocket.emit("registerUser", user.id);
+        console.log("🧑‍💻 Registered user:", user.id);
+      }
     });
 
-    // Handle reconnection automatically
+    newSocket.on("connect_error", (err) => {
+      console.error("❌ Socket connection error:", err.message);
+    });
+
     newSocket.on("reconnect", () => {
       console.log("🔁 Reconnected:", newSocket.id);
-      newSocket.emit("registerUser", user.id);
+      if (user?.id) newSocket.emit("registerUser", user.id);
     });
 
     setSocket(newSocket);
 
-    // Cleanup on unmount or logout
+    // 🧹 Cleanup on unmount
     return () => {
       newSocket.disconnect();
     };
-  }, [user]);
+  }, [user?.id]); // 👈 Run only when user.id changes
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
