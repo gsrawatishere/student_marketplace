@@ -142,7 +142,7 @@ export const logout = async (req, res) => {
     res.cookie("refreshToken", "", {
       maxAge: 0,
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "none",
       secure: true,
     });
 
