@@ -149,7 +149,7 @@ export const logout = async (req, res) => {
     res.cookie("accessToken", "", {
       maxAge: 0,
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "none",
       secure: true,
     });
 
