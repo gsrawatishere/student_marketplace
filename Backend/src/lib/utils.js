@@ -15,7 +15,7 @@ export const generateAccessToken = (id, res) => {
     res.cookie("accessToken", accessToken, {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
         secure: true,
     });
     return accessToken;
@@ -35,7 +35,7 @@ export const generateRefreshToken = (id, res) => {
     res.cookie("refreshToken", refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
         secure: true,
     });
     return refreshToken;
@@ -94,7 +94,7 @@ export const updateAccessToken = async (req, res) => {
     res.cookie("accessToken", newAccessToken, {
       maxAge: 15 * 60 * 1000,
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
         secure: true,
     });
 
